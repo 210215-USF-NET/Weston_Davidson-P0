@@ -86,10 +86,34 @@ search customer, add customer, navigate and view location inventory, try to have
 - make sure in groups, you communicate setup beforehand
 
 
-# Flow of command for menufactory
-- interface IAbstractMenuFactory defines IAbstractProduct methods and is then implemented by the concrete factory class concreteMenuFactory
--   The concrete factory class instantiates types of interfaces for the specified menu
--   the menu interface that defines all types of that certain menu is then implemented
+# console application notes - https://www.youtube.com/watch?v=dKBuvdGsYYc
+- simple, robust, low dev cost, great for automation
+1. parameter parsing
+1. data input
+1. data processing
+1. data output
+- libraries that will help!
+    - ConsoleTables - https://github.com/khalidabuhakmeh/ConsoleTables provides console output and sample output
+    - CommandDotNet
+
+
+# Factory Method Pattern
+1. Factory Method Pattern
+    - why do we need this pattern?
+        - we use lots of different objects and classes
+        - dependency injection is programming by wishful thinking (what if I already had a thing that did this, this, and this)
+        - at some point, though, that thing has to be constructed
+        - new has to happen at some point!
+        - the question is, where to we instantiate them?
+        - when you are about to instantiate, let's encapsulate that instantiation, so you can use the factory whenever you want to instantiate
+        - now, why create a wrapper around new?
+            - well, the instantiation may be very complex
+            - also about polymorphism - a factory that wraps the construction, and the factory is an instance, you can swap the instance for another instance of a different thing
+        - as an example, many classes can implement from one interface
+            - let's say you want to instantiate one of these classes
+            - if you don't know what you need, then you would want to pass this in
+            - a program 
+1. Abstract Factory Pattern
 
 # abstract factory notes
 - an abstract factory pattern uses a super factory, or a "factory of factories".
