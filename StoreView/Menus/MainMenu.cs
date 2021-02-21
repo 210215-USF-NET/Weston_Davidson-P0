@@ -14,6 +14,7 @@ namespace StoreView.Menus
         public MainMenu(ICustomerBL customerBL){
             _customerBL = customerBL;
 
+            //create required menu views in constructor, pass in required BL/DL connections
             managerMenu = new ManagerMenu(_customerBL);
         }
 

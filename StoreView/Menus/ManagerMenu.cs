@@ -8,14 +8,18 @@ namespace StoreView.Menus
     public class ManagerMenu : IMenu
     {
         private ICustomerBL _customerBL;
+        private IMenu customerSearch;
 
         public ManagerMenu(ICustomerBL customerBL){
             _customerBL = customerBL;
+
+            //generate menus necessary for managermenu access
+            customerSearch = new CustSearch(_customerBL);
         }
 
 
         
-        //IMenu CustomerSearch = new CustSearch();
+
         public void Start()
         {
             Boolean stay = true;
@@ -38,7 +42,8 @@ namespace StoreView.Menus
 
                 case "0":
                     try {
-                        //BL Call - create customer
+                        //BL Call - create customer -  WORKING :)
+                        //still need to implement automatic customer ID assignment
                         CreateCustomer();
                     }
                     catch(Exception){
@@ -49,8 +54,7 @@ namespace StoreView.Menus
                     break;
 
                 case "1":
-                    //CustSearch.Start();
-                    stay = false;
+                    customerSearch.Start();
                     break;
 
                 case "2":
@@ -99,6 +103,8 @@ namespace StoreView.Menus
             Console.WriteLine("Set Customer Account Default Password: ");
 
             newCustomer.PasswordHashSetter(Console.ReadLine());
+
+            newCustomer.CustomerID = _customerBL.GenerateID();
 
             _customerBL.AddCustomer(newCustomer);
             Console.WriteLine($"Customer {newCustomer.FName} {newCustomer.LName} created successfully!");
