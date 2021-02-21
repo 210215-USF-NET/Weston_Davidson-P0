@@ -4,7 +4,12 @@
 
 # Functionality:
 - [ ] add a new customer
+    - status: working with json data
+    - TODO: interface with DB When it's time!
 - [ ] search customers by name
+    - status: ui logic/pathing works, makes sense
+    - TODO:
+        - interface with DB when it's time!
 - [ ] display details of an order
 - [ ] place orders to store locations for customers
 - [ ] view order history of customer
@@ -15,10 +20,16 @@
 - [ ] The manager should be able to replenish inventory
 
 # Models:
-- [ ] Customer
+- [X] Customer
+    - model working correctly in conjunction with BL
+    - TODO:
+        - Implement better method of generating user ID that checks against already existing DB values
 - [ ] Location
+    - created, not implemented yet
 - [ ] Orders
+    - created, not implemented yet
 - [ ] Product
+    - created, not implemented yet
 - Note: add as much models as you would need for your design
 
 # Additional requirements:
