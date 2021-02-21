@@ -79,6 +79,40 @@ search customer, add customer, navigate and view location inventory, try to have
 
 # log to a JSON file, and every time you run program at a certain date, sorta show that in that folder maybe - new requirements for the project
 
+# Object Structure Brainstorming
+
+### Customer
+- first name
+- last name
+- ID
+- password (stored as hash)
+
+
+### Cart
+- CartID
+- FK Customer ID
+- FK Product
+- grab certain product info using composite key between cartID and Product?
+- will need to figure out ER for this one tbh
+
+
+### Location
+- PK LocationID
+- Name
+- (composite key for inventory?)
+
+
+### Order
+- PK OrderID
+- Name
+- Date
+- FK customerID
+
+### Product
+- ProductID
+- Name
+- Another composite key for keeping track of product supply based on inventory?
+- I need to research DBs lol
 
 
 # presentation tips:
