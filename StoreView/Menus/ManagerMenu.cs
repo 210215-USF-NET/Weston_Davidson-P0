@@ -7,9 +7,15 @@ namespace StoreView.Menus
     
     public class ManagerMenu : IMenu
     {
-        ICustomerBL _cusomterBL;
+        private ICustomerBL _customerBL;
 
-        IMenu CustomerSearch = new CustSearch();
+        public ManagerMenu(ICustomerBL customerBL){
+            _customerBL = customerBL;
+        }
+
+
+        
+        //IMenu CustomerSearch = new CustSearch();
         public void Start()
         {
             Boolean stay = true;
@@ -92,9 +98,9 @@ namespace StoreView.Menus
 
             Console.WriteLine("Set Customer Account Default Password: ");
 
-            newCustomer.PasswordHash = Console.ReadLine();
+            newCustomer.PasswordHashSetter(Console.ReadLine());
 
-            _cusomterBL.AddCustomer(newCustomer);
+            _customerBL.AddCustomer(newCustomer);
             Console.WriteLine($"Customer {newCustomer.FName} {newCustomer.LName} created successfully!");
         }
     }

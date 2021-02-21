@@ -2,22 +2,28 @@ namespace StoreModel
 {
     public class Customer
     {
-        string FName {get; set;}
+        public string FName {get; set;}
 
-        string LName {get; set;}
+        public string LName {get; set;}
 
-        int CustomerID {get; set;}
+        public int CustomerID {get; set;}
 
+        private string passwordHash;
 
-        string PasswordHash {get{return PasswordHash;} set{
-            //TODO - create hashing algorithm in BL and call here
+        public string PasswordHasGetter(){
+            return passwordHash;
+        }
+
+        public void PasswordHashSetter(string password){
+                        //TODO - create hashing algorithm in BL and call here
             //call busineslogic and return hash value, assign passwordHash to 
-            PasswordHash = "This would be the hash generated for customer";
+            passwordHash = password;
+
 
         }
-        
-        
-        }
 
+        
+        
     }
+
 }

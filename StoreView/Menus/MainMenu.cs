@@ -1,14 +1,24 @@
 using System;
+using StoreModel;
+using StoreController;
+
 
 namespace StoreView.Menus
 {
     public class MainMenu : IMenu
     {
-        
-            //instantiate additional menus on main menu load
+            private IMenu managerMenu;
 
-            IMenu ManagerMenu = new ManagerMenu();
+            private ICustomerBL _customerBL;
 
+        public MainMenu(ICustomerBL customerBL){
+            _customerBL = customerBL;
+
+            managerMenu = new ManagerMenu(_customerBL);
+        }
+
+
+            
 
 
         public void Start(){
@@ -25,7 +35,7 @@ namespace StoreView.Menus
                 switch (userInput){
                     case "0":
                     stay = false;
-                    ManagerMenu.Start();
+                    managerMenu.Start();
                     break;
                     default :
                     Console.WriteLine("Not a valid menu option!");

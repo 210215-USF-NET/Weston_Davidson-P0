@@ -13,13 +13,9 @@ namespace StoreController
         }
         */
 
-        void AddCustomer(){
+        void AddCustomer(Customer newCustomer);
 
-        }
-
-        List<Customer> GetCustomers(){
-
-        }
+        List<Customer> GetCustomers();
 
     }
 }
