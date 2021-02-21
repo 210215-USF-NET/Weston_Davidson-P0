@@ -1,11 +1,49 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {}
+    "net5.0": {
+      "StoreData/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "StoreModel": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/StoreData.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/StoreData.dll": {}
+        }
+      },
+      "StoreModel/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/StoreModel.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/StoreModel.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "StoreData/1.0.0": {
+      "type": "project",
+      "path": "../StoreData/StoreData.csproj",
+      "msbuildProject": "../StoreData/StoreData.csproj"
+    },
+    "StoreModel/1.0.0": {
+      "type": "project",
+      "path": "../StoreModel/StoreModel.csproj",
+      "msbuildProject": "../StoreModel/StoreModel.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0": []
+    "net5.0": [
+      "StoreData >= 1.0.0",
+      "StoreModel >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Westo\\.nuget\\packages\\": {},
@@ -38,7 +76,14 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Revature training repositories\\Weston_Davidson-P0\\Weston_Davidson-P0\\StoreData\\StoreData.csproj": {
+              "projectPath": "C:\\Revature training repositories\\Weston_Davidson-P0\\Weston_Davidson-P0\\StoreData\\StoreData.csproj"
+            },
+            "C:\\Revature training repositories\\Weston_Davidson-P0\\Weston_Davidson-P0\\StoreModel\\StoreModel.csproj": {
+              "projectPath": "C:\\Revature training repositories\\Weston_Davidson-P0\\Weston_Davidson-P0\\StoreModel\\StoreModel.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

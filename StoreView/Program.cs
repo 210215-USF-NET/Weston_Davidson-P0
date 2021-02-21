@@ -1,5 +1,8 @@
 ﻿using System;
 using StoreView.Menus;
+using StoreModel;
+using StoreController;
+using StoreData;
 
 namespace StoreView 
 {
@@ -9,7 +12,7 @@ namespace StoreView
 
 		static void Main (string[] args)
 		{
-		IMenu menu = new MainMenu();
+		IMenu menu = new MainMenu(new CustomerBL(new CustomerRepoFile()));
 		menu.Start(); 
 
 

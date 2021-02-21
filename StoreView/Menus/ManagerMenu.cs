@@ -1,10 +1,13 @@
 using System;
+using StoreModel;
+using StoreController;
 
 namespace StoreView.Menus
 {
     
     public class ManagerMenu : IMenu
     {
+        ICustomerBL _cusomterBL;
 
         IMenu CustomerSearch = new CustSearch();
         public void Start()
@@ -30,7 +33,7 @@ namespace StoreView.Menus
                 case "0":
                     try {
                         //BL Call - create customer
-                        //CreateCustomer();
+                        CreateCustomer();
                     }
                     catch(Exception){
                         Console.WriteLine("Invalid Input");
@@ -73,6 +76,26 @@ namespace StoreView.Menus
 
 
 
+        }
+
+
+
+        public void CreateCustomer(){
+            Customer newCustomer = new Customer();
+
+
+            Console.WriteLine("Enter Customer First Name: ");
+            newCustomer.FName = Console.ReadLine();
+
+            Console.WriteLine("Enter Customer Last Name: ");
+            newCustomer.LName = Console.ReadLine();
+
+            Console.WriteLine("Set Customer Account Default Password: ");
+
+            newCustomer.PasswordHash = Console.ReadLine();
+
+            _cusomterBL.AddCustomer(newCustomer);
+            Console.WriteLine($"Customer {newCustomer.FName} {newCustomer.LName} created successfully!");
         }
     }
 }
