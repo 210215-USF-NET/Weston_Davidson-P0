@@ -1,6 +1,8 @@
 using System;
 using StoreModel;
 using StoreController;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace StoreView.Menus
 {
@@ -34,11 +36,11 @@ namespace StoreView.Menus
                 break;
                 case "all":
                 //return a list of all customers - BUILD IN METHOD TO INTERACT WITH BL
-                Console.WriteLine("This would return a list of all customers");
+                GetAllCustomers();
                 break;
                 default:
                 //return specified string values of names retrieved from DB
-                Console.WriteLine($"This will return a list of all people matching search criteria {userInput}");
+                GetSearchedCustomers(userInput);
                 break;
             }
 
@@ -46,5 +48,32 @@ namespace StoreView.Menus
 
 
         }
+
+
+        public void GetAllCustomers(){
+            LineSeparator line =  new LineSeparator();
+            List<Customer> customerList = _customerBL.GetCustomers();
+            foreach(Customer customer in customerList){
+                line.LineSeparate();
+                Console.WriteLine(customer);
+            }
+            line.LineSeparate();
+        }
+
+
+        public void GetSearchedCustomers(string searchTerm){
+            
+            LineSeparator line =  new LineSeparator();
+            List<Customer> customerList = _customerBL.GetCustomers();
+            foreach(Customer customer in customerList){
+                if(customer.FName.Contains(searchTerm) || customer.LName.Contains(searchTerm)){
+                    line.LineSeparate();
+                    Console.WriteLine(customer);
+                }
+            }
+            line.LineSeparate();
+
+        }
+
     }
 }

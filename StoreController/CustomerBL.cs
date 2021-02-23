@@ -15,11 +15,9 @@ namespace StoreController
             _repo = repo;
         }
 
-        /*
-        public string GenerateID(){
+        
 
-        }
-        */
+
 
 
         public void AddCustomer(Customer newCustomer){
@@ -35,7 +33,7 @@ namespace StoreController
 
         public int GenerateID(){
             //this will need to be replaced with a way to check against existing DB values later on
-            int CustomerID = rand.Next(10000, 50001);
+            int CustomerID = RNG.RandomGen();
             return CustomerID;
 
         }

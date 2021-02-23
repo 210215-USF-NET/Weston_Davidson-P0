@@ -22,8 +22,17 @@ namespace StoreModel
 
         }
 
-        
-        
+        public override string ToString()
+        {
+            
+            return $"| First Name: {FName} | Last Name: {LName} | Customer ID: {CustomerID} |";
+        }
+
+
+
+
+    
+    
     }
 
 }

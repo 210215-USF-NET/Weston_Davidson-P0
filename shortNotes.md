@@ -2,6 +2,9 @@
 ### Store App Overview:
 - The store app is a software that helps customers purchase products from your business. Designed with functionality that would make virtual shopping much simpler!
 
+# store name: SineShop
+- sells different models of synthesizers
+
 # Functionality:
 - [ ] add a new customer
     - status: working with json data
@@ -30,6 +33,7 @@
     - created, not implemented yet
 - [ ] Product
     - created, not implemented yet
+    - product type will be physical synths
 - Note: add as much models as you would need for your design
 
 # Additional requirements:
