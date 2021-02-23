@@ -63,14 +63,23 @@ namespace StoreView.Menus
 
         public void GetSearchedCustomers(string searchTerm){
             
+            int tracker = 0;
+
             LineSeparator line =  new LineSeparator();
             List<Customer> customerList = _customerBL.GetCustomers();
             foreach(Customer customer in customerList){
                 if(customer.FName.Contains(searchTerm) || customer.LName.Contains(searchTerm)){
                     line.LineSeparate();
                     Console.WriteLine(customer);
+                    tracker++;
                 }
             }
+
+            if (tracker == 0){
+                line.LineSeparate();
+                Console.WriteLine("No results found! Please double-check customer name spelling");
+            }
+
             line.LineSeparate();
 
         }
