@@ -2,7 +2,11 @@ namespace StoreModel
 {
     public class Cart
     {
-        int CartID {get; set;}
+        public int CartID {get; set;}
         
+        public int product_cart_quantity {get; set;}
+
+        
+
     }
 }

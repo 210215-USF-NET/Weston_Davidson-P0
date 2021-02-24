@@ -9,13 +9,16 @@ namespace StoreView.Menus
     public class ManagerMenu : IMenu
     {
         private ICustomerBL _customerBL;
+        private IProductBL _productBL;
+        private ILocationBL _locationBL;
+
         private IMenu customerSearch;
         private IMenu productSearch;
-        private IProductBL _productBL;
 
-        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL){
+        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL){
             _customerBL = customerBL;
             _productBL = productBL;
+            _locationBL = locationBL;
 
             //generate menus necessary for managermenu access
             customerSearch = new CustSearch(_customerBL);
@@ -65,7 +68,7 @@ namespace StoreView.Menus
 
                 case "2":
                         //BL Call - add inventory to store
-                        //AddInventory();
+                        AddInventory();
                         break;
                 case "3":
                         //review orders
@@ -138,6 +141,11 @@ namespace StoreView.Menus
             _productBL.AddProduct(newProduct);
             Console.WriteLine($"Product {newProduct.ProductName} With product ID {newProduct.ProductID} created successfully!");
 
+
+        }
+
+
+        public void AddInventory(){
 
         }
     }

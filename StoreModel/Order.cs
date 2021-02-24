@@ -7,6 +7,8 @@ namespace StoreModel
         int OrderDate {get; set;}
 
         int CustomerID {get; set;}
+
+        int locationID {get; set;}
         
     }
 }

@@ -7,7 +7,7 @@ namespace StoreController
         private static Random rand = new Random();
 
         public static int RandomGen(){
-            return rand.Next(10000, 50001);
+            return rand.Next(10000, 20001);
         }
     }
 }
