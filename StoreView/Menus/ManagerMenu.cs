@@ -11,14 +11,16 @@ namespace StoreView.Menus
         private ICustomerBL _customerBL;
         private IProductBL _productBL;
         private ILocationBL _locationBL;
+        private IOrderBL _orderBL;
 
         private IMenu customerSearch;
         private IMenu productSearch;
 
-        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL){
+        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IOrderBL orderBL){
             _customerBL = customerBL;
             _productBL = productBL;
             _locationBL = locationBL;
+            _orderBL = orderBL;
 
             //generate menus necessary for managermenu access
             customerSearch = new CustSearch(_customerBL);

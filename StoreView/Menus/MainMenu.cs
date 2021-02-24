@@ -12,15 +12,17 @@ namespace StoreView.Menus
             private ICustomerBL _customerBL;
             private IProductBL _productBL;
             private ILocationBL _locationBL;
+            private IOrderBL _orderBL;
 
-        public MainMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL){
+        public MainMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IOrderBL orderBL){
             _customerBL = customerBL;
             _productBL = productBL;
             _locationBL = locationBL;
+            _orderBL = orderBL;
 
 
             //create required menu views in constructor, pass in required BL/DL connections
-            managerMenu = new ManagerMenu(_customerBL, _productBL, _locationBL);
+            managerMenu = new ManagerMenu(_customerBL, _productBL, _locationBL, orderBL);
         }
 
 
@@ -42,6 +44,13 @@ namespace StoreView.Menus
                     case "0":
                     stay = false;
                     managerMenu.Start();
+                    break;
+                    case "1":
+                    stay = false;
+                    //client menu stuff
+                    break;
+                    case "2":
+                    System.Environment.Exit(0);
                     break;
                     default :
                     Console.WriteLine("Not a valid menu option!");

@@ -68,15 +68,23 @@ namespace StoreView.Menus
 
         public void GetSearchedProducts(string searchTerm)
         {
+            int tracker = 0;
 
             LineSeparator line = new LineSeparator();
             List<Product> productList = _productBL.GetProduct();
             foreach (Product product in productList)
             {
-                if(product.ProductName.Contains(searchTerm)){
-                line.LineSeparate();
-                Console.WriteLine(product);
+                if (product.ProductName.Contains(searchTerm))
+                {
+                    line.LineSeparate();
+                    Console.WriteLine(product);
                 }
+            }
+
+            if (tracker == 0)
+            {
+                line.LineSeparate();
+                Console.WriteLine("No results found! Please double-check customer name spelling");
             }
 
             line.LineSeparate();

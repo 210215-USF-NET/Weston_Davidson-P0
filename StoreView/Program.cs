@@ -12,7 +12,7 @@ namespace StoreView
 
 		static void Main (string[] args)
 		{
-		IMenu menu = new MainMenu(new CustomerBL(new CustomerRepoFile()), new ProductBL(new ProductRepoFile()), new LocationBL(new LocationRepoFile()));
+		IMenu menu = new MainMenu(new CustomerBL(new CustomerRepoFile()), new ProductBL(new ProductRepoFile()), new LocationBL(new LocationRepoFile()), new OrderBL(new OrderRepoFile()));
 		menu.Start(); 
 
 
