@@ -7,6 +7,8 @@ namespace StoreModel
 
         string LocationID {get; set;}
 
+        string Address {get; set;}
 
+        
     }
 }

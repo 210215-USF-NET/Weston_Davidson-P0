@@ -10,12 +10,15 @@ namespace StoreView.Menus
             private IMenu managerMenu;
 
             private ICustomerBL _customerBL;
+            private IProductBL _productBL;
 
-        public MainMenu(ICustomerBL customerBL){
+        public MainMenu(ICustomerBL customerBL, IProductBL productBL){
             _customerBL = customerBL;
+            _productBL = productBL;
+
 
             //create required menu views in constructor, pass in required BL/DL connections
-            managerMenu = new ManagerMenu(_customerBL);
+            managerMenu = new ManagerMenu(_customerBL, _productBL);
         }
 
 
