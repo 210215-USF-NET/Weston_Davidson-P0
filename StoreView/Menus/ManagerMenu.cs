@@ -9,16 +9,16 @@ namespace StoreView.Menus
     {
         private ICustomerBL _customerBL;
         private IMenu customerSearch;
+        private IProductBL _productBL;
 
-        public ManagerMenu(ICustomerBL customerBL){
+        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL){
             _customerBL = customerBL;
+            _productBL = productBL;
 
             //generate menus necessary for managermenu access
             customerSearch = new CustSearch(_customerBL);
+            ProductSearch = new ProductSearch(_productBL);
         }
-
-
-        
 
         public void Start()
         {
@@ -34,6 +34,8 @@ namespace StoreView.Menus
             Console.WriteLine("[2] Add Inventory to Store");
             Console.WriteLine("[3] Review Orders");
             Console.WriteLine("[4] Review Inventory");
+            //place orders as manager
+
             Console.WriteLine("[5] Exit");
 
             String userInput = Console.ReadLine();
