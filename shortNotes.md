@@ -5,6 +5,8 @@
 # store name: SineShop
 - sells different models of synthesizers
 
+
+
 # Functionality:
 - [ ] add a new customer
 - [ ] search customers by name
@@ -42,6 +44,27 @@
 - EF Core
 - Xunit
 - Serilog or Nlog
+
+# relationships in our system:
+- one customer can have many orders, but one order can only belong to one customer
+    - 1:M
+- one and only one customer can have one and only one cart 
+    - 1:1
+- one and only one cart can include one and only one order 
+    - 1:1
+- one cart can hold many products, many products can exist in one cart
+    - M:M
+- many locations can hold many products
+    - M:M
+    - composite table: inventory
+        - FK productID
+        - FK locationID
+        - PK inventoryID
+        - include a count of product!
+- One location can have many orders, but an order can only have one location
+    - 1:M
+
+
 
 
 # Additional Details

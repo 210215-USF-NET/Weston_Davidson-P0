@@ -7,7 +7,7 @@ namespace StoreController
 {
     public class CustomerBL : ICustomerBL
     {
-        private Random rand = new Random();
+        //private Random rand = new Random();
 
         private ICustomerRepository _repo;
 

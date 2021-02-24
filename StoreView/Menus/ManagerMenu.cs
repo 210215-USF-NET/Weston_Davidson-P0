@@ -1,6 +1,7 @@
 using System;
 using StoreModel;
 using StoreController;
+using StoreData;
 
 namespace StoreView.Menus
 {
@@ -9,6 +10,7 @@ namespace StoreView.Menus
     {
         private ICustomerBL _customerBL;
         private IMenu customerSearch;
+        private IMenu productSearch;
         private IProductBL _productBL;
 
         public ManagerMenu(ICustomerBL customerBL, IProductBL productBL){
@@ -17,7 +19,7 @@ namespace StoreView.Menus
 
             //generate menus necessary for managermenu access
             customerSearch = new CustSearch(_customerBL);
-            ProductSearch = new ProductSearch(_productBL);
+            productSearch = new ProductSearch(_productBL);
         }
 
         public void Start()
@@ -34,9 +36,11 @@ namespace StoreView.Menus
             Console.WriteLine("[2] Add Inventory to Store");
             Console.WriteLine("[3] Review Orders");
             Console.WriteLine("[4] Review Inventory");
+            Console.WriteLine("[5] Review Products");
+            Console.WriteLine("[6] Add new Product");
             //place orders as manager
 
-            Console.WriteLine("[5] Exit");
+            Console.WriteLine("[7] Exit");
 
             String userInput = Console.ReadLine();
 
@@ -76,6 +80,14 @@ namespace StoreView.Menus
                         stay = false;
                         break;
                 case "5":
+                        //search products
+                        productSearch.Start();
+                        break;
+                case "6":
+                        //add new product
+                        AddProduct();
+                        break;
+                case "7":
                         //exit program
                         System.Environment.Exit(0);
                         break;
@@ -110,6 +122,23 @@ namespace StoreView.Menus
 
             _customerBL.AddCustomer(newCustomer);
             Console.WriteLine($"Customer {newCustomer.FName} {newCustomer.LName} created successfully!");
+        }
+
+
+        public void AddProduct(){
+            Product newProduct = new Product();
+            
+            newProduct.ProductID = _productBL.GenerateID();
+            Console.WriteLine("Enter new Product Name:");
+            newProduct.ProductName = Console.ReadLine();
+
+            Console.WriteLine("Enter new Product Description:");
+            newProduct.ProductDescription = Console.ReadLine();
+
+            _productBL.AddProduct(newProduct);
+            Console.WriteLine($"Product {newProduct.ProductName} With product ID {newProduct.ProductID} created successfully!");
+
+
         }
     }
 }

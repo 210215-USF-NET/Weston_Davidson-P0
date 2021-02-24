@@ -9,12 +9,14 @@ namespace StoreData
     public class ProductRepoFile : IProductRepository
     {
         private string jsonString;
-        private string filePath = "../ProductRepoFile.json";
+        private string filePath = "../BaseProductRepoFile.json";
+        //private string baseProductsPath = "../BaseProductRepoFile.json";
 
 
         public Product AddProduct(Product newProduct){
 
             List<Product> productsFromFile = new List<Product>();
+
 
             productsFromFile = GetProducts();
 
@@ -35,11 +37,24 @@ namespace StoreData
                 jsonString = File.ReadAllText(filePath);
             }
             catch(Exception){
+
+                //return base product list instead of empty list
                 return new List<Product>();
+
             }
 
             return JsonSerializer.Deserialize<List<Product>>(jsonString);
         }
+
+/*
+        public List<Product> GenerateBaseProducts(){
+            List<Product> productList = new List<Product>();
+
+            productList.Add();
+
+        }
+        */
+
 
     }
 }
