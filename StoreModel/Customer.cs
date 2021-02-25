@@ -1,9 +1,18 @@
+using System;
+using System.Collections.Generic;
+
 namespace StoreModel
 {
     public class Customer
     {
+
         public int CustomerID {get; set;}
 
+        public Customer()
+        {
+            Carts = new List<Cart>();
+            Orders = new List<Order>();
+        }
         public string FName {get; set;}
 
         public string LName {get; set;}
@@ -12,21 +21,9 @@ namespace StoreModel
 
 
 
-        private string passwordHash;
+        public string PasswordHash {get; set;}
 
-        /*
-        public string PasswordHasGetter(){
-            return passwordHash;
-        }
-        */
-
-        public void PasswordHashSetter(string password){
-                        //TODO - create hashing algorithm in BL and call here
-            //call busineslogic and return hash value, assign passwordHash to 
-            passwordHash = password;
-
-
-        }
+        
 
         public override string ToString()
         {
@@ -34,7 +31,9 @@ namespace StoreModel
             return $"| First Name: {FName} | Last Name: {LName} | Customer ID: {CustomerID} |";
         }
 
+        public List<Cart> Carts {get; set;}
 
+        public List<Order> Orders {get; set;}
 
 
     

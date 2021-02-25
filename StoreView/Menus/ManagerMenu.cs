@@ -119,13 +119,17 @@ namespace StoreView.Menus
             Console.WriteLine("Enter Customer Last Name: ");
             newCustomer.LName = Console.ReadLine();
 
+            Console.WriteLine("Create a username for the customer: ");
+            newCustomer.Username = Console.ReadLine();
+
             Console.WriteLine("Set Customer Account Default Password: ");
+            newCustomer.PasswordHash = Console.ReadLine();
+            //newCustomer.PasswordHashSetter(Console.ReadLine());
 
-            newCustomer.PasswordHashSetter(Console.ReadLine());
-
-            newCustomer.CustomerID = _customerBL.GenerateID();
+            //newCustomer.CustomerID = _customerBL.GenerateID();
 
             _customerBL.AddCustomer(newCustomer);
+
             Console.WriteLine($"Customer {newCustomer.FName} {newCustomer.LName} created successfully!");
         }
 

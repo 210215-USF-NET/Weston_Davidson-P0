@@ -21,7 +21,7 @@ namespace StoreView.Menus
 
             do{
 
-            Console.WriteLine("Enter a customer name to view details about a specific customer.");
+            Console.WriteLine("Enter a customer first name, last name, or ID to view details about a specific customer.");
             Console.WriteLine("Type in \"all\" to view a list of all customers");
             Console.WriteLine("Type in \"exit\" to return to the manager menu.");
 
@@ -64,11 +64,10 @@ namespace StoreView.Menus
         public void GetSearchedCustomers(string searchTerm){
             
             int tracker = 0;
-
             LineSeparator line =  new LineSeparator();
             List<Customer> customerList = _customerBL.GetCustomers();
             foreach(Customer customer in customerList){
-                if(customer.FName.Contains(searchTerm) || customer.LName.Contains(searchTerm)){
+                if(customer.FName.Contains(searchTerm) || customer.LName.Contains(searchTerm) || customer.CustomerID.ToString().Contains(searchTerm)){
                     line.LineSeparate();
                     Console.WriteLine(customer);
                     tracker++;
@@ -77,7 +76,7 @@ namespace StoreView.Menus
 
             if (tracker == 0){
                 line.LineSeparate();
-                Console.WriteLine("No results found! Please double-check customer name spelling");
+                Console.WriteLine("No results found! Please double-check customer name spelling. \nReminder: This search system is Case Sensitive :)");
             }
 
             line.LineSeparate();
