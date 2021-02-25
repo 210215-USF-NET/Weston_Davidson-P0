@@ -2,17 +2,23 @@ namespace StoreModel
 {
     public class Customer
     {
+        public int CustomerID {get; set;}
+
         public string FName {get; set;}
 
         public string LName {get; set;}
 
-        public int CustomerID {get; set;}
+        public string Username {get; set;}
+
+
 
         private string passwordHash;
 
+        /*
         public string PasswordHasGetter(){
             return passwordHash;
         }
+        */
 
         public void PasswordHashSetter(string password){
                         //TODO - create hashing algorithm in BL and call here

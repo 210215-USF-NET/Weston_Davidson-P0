@@ -8,7 +8,9 @@ namespace StoreModel
 
         public string ProductDescription {get; set;}
 
+        public string ProductPrice {get; set;}
 
+        public string Manufacturer {get; set;}
         //by tracking product location in product, we can easily determine where inventory should be added
         // depending on how this POCO gets set
 
