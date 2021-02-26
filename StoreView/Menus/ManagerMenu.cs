@@ -17,6 +17,7 @@ namespace StoreView.Menus
         private IInventoryBL _inventoryBL;
         private IMenu customerSearch;
         private IMenu productSearch;
+        private IMenu inventorySearch;
 
         public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL){
             _customerBL = customerBL;
@@ -28,6 +29,7 @@ namespace StoreView.Menus
             //generate menus necessary for managermenu access
             customerSearch = new CustSearch(_customerBL);
             productSearch = new ProductSearch(_productBL);
+            inventorySearch = new InventorySearch(_inventoryBL);
         }
 
         public void Start()
@@ -85,8 +87,7 @@ namespace StoreView.Menus
                 case "4":
                         //review inventory
                         // menu call - take to inventory menu
-                        //InventorySearch.Start();
-                        stay = false;
+                        inventorySearch.Start();
                         break;
                 case "5":
                         //search products
