@@ -67,7 +67,8 @@ namespace StoreView.Menus
             LineSeparator line =  new LineSeparator();
             List<Customer> customerList = _customerBL.GetCustomers();
             foreach(Customer customer in customerList){
-                if(customer.FName.Contains(searchTerm) || customer.LName.Contains(searchTerm) || customer.CustomerID.ToString().Contains(searchTerm)){
+                if(customer.FName.Contains(searchTerm) || customer.LName.Contains(searchTerm) || customer.CustomerID.ToString().Contains(searchTerm))
+                {
                     line.LineSeparate();
                     Console.WriteLine(customer);
                     tracker++;

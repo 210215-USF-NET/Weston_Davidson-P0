@@ -74,17 +74,18 @@ namespace StoreView.Menus
             List<Product> productList = _productBL.GetProduct();
             foreach (Product product in productList)
             {
-                if (product.ProductName.Contains(searchTerm))
+                if (product.ProductName.Contains(searchTerm) || product.Manufacturer.Contains(searchTerm) || product.ProductID.ToString().Contains(searchTerm))
                 {
                     line.LineSeparate();
                     Console.WriteLine(product);
+                    tracker++;
                 }
             }
 
             if (tracker == 0)
             {
                 line.LineSeparate();
-                Console.WriteLine("No results found! Please double-check customer name spelling");
+                Console.WriteLine("No results found! Please double-check product spelling. \nThis system is Case Sensitive :)");
             }
 
             line.LineSeparate();

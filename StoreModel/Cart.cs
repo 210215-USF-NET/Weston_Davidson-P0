@@ -4,7 +4,7 @@ namespace StoreModel
     {
         public int CartID {get; set;}
         
-        public Customer customerID {get; set;}
+        public int customerID {get; set;}
 
         
 

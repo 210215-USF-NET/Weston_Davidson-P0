@@ -17,5 +17,20 @@ namespace StoreController
         public List<Location> GetLocations(){
                 return _repo.GetLocations();
         }
+
+        public Location FilterLocationByName(string name){
+            List<Location> locationList = _repo.GetLocations();
+            //Console.WriteLine(locationList);
+            Location selectedLocation = new Location();
+            foreach(Location x in locationList){
+                if (x.LocationName == name){
+                    selectedLocation = x;
+
+                }
+                
+            }
+            return selectedLocation;
+
+        }
     }
 }

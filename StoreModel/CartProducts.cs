@@ -7,12 +7,12 @@ namespace StoreModel
         //cartproducts are the combination of the cart ID they are held in
         //and the product ID being added
 
-        public int ProductCount {get; set;}
+        public int? ProductCount {get; set;}
 
-        public Cart CartID {get; set;}
+        public int CartID {get; set;}
 
-        public Product ProductID{get; set;}
+        public int ProductID{get; set;}
 
-        public Inventory InventoryID{get; set;}
+        public int? InventoryID{get; set;}
     }
 }

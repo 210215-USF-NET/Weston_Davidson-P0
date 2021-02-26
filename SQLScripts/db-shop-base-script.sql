@@ -51,7 +51,7 @@ ADD manufacturer varchar(50);
 CREATE TABLE inventory (
     inventory_id int IDENTITY(20000, 1) PRIMARY KEY,	
 	inventory_name varchar(100) NOT NULL,
-	product_quantity varchar(500),
+	product_quantity int,
 	location_id int NOT NULL,
 	product_id int NOT NULL,
 
@@ -60,7 +60,11 @@ CREATE TABLE inventory (
 
 );
 
-
+/*
+--change product_quantity to int instead of string
+ALTER TABLE inventory
+ALTER COLUMN product_quantity int;
+*/
 
 CREATE TABLE cart (
 	cart_id int IDENTITY(80000, 1) PRIMARY KEY,

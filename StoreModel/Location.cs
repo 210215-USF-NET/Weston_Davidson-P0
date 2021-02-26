@@ -5,10 +5,14 @@ namespace StoreModel
 
         public string LocationName {get; set;}
 
-        public string LocationID {get; set;}
+        public int LocationID {get; set;}
 
         public string Address {get; set;}
 
-        
+
+        public override string ToString()
+        {
+            return $"| Location ID: {LocationID} | Name: {LocationName} | Address: {Address} |";
+        }
     }
 }

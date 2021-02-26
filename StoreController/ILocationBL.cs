@@ -9,5 +9,7 @@ namespace StoreController
     {
         List<Location> GetLocations();
 
+        Location FilterLocationByName(string name);
+
     }
 }

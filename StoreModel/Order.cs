@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using System;
 
 namespace StoreModel
 {
     public class Order
     {
-        int OrderID { get; set; }
+        public int OrderID { get; set; }
 
-        int OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
 
         //an order has a location, a customer, and a list of products
 

@@ -8,12 +8,14 @@ namespace StoreController
     public interface IProductBL
     {
          
-        int GenerateID();
+        //int GenerateID();
         
 
         void AddProduct(Product newProduct);
 
         List<Product> GetProduct();
+
+        Product GetFilteredProduct(string productName);
 
     }
 }

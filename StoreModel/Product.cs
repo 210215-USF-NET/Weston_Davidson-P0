@@ -8,7 +8,7 @@ namespace StoreModel
 
         public string ProductDescription {get; set;}
 
-        public string ProductPrice {get; set;}
+        public decimal? ProductPrice {get; set;}
 
         public string Manufacturer {get; set;}
         //by tracking product location in product, we can easily determine where inventory should be added
@@ -19,7 +19,7 @@ namespace StoreModel
         public override string ToString()
         {
             
-            return $"| Product: {ProductName} | ID: {ProductID} | Description: {ProductDescription} |";
+            return $"| Product: {ProductName} | ID: {ProductID} | Description: {ProductDescription} | Manufacturer: {Manufacturer} | Price {ProductPrice} |";
         }
 
     }

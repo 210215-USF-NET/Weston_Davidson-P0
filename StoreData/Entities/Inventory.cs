@@ -14,7 +14,7 @@ namespace StoreData.Entities
 
         public int InventoryId { get; set; }
         public string InventoryName { get; set; }
-        public string ProductQuantity { get; set; }
+        public int ProductQuantity { get; set; }
         public int LocationId { get; set; }
         public int ProductId { get; set; }
 
