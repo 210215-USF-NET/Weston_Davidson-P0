@@ -15,9 +15,11 @@ namespace StoreView.Menus
         private IOrderBL _orderBL;
 
         private IInventoryBL _inventoryBL;
-        private IMenu customerSearch;
+        private ICustSearch customerSearch;
         private IMenu productSearch;
         private IMenu inventorySearch;
+
+        private IMenu orderSearch;
 
         public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL){
             _customerBL = customerBL;
@@ -30,6 +32,7 @@ namespace StoreView.Menus
             customerSearch = new CustSearch(_customerBL);
             productSearch = new ProductSearch(_productBL);
             inventorySearch = new InventorySearch(_inventoryBL);
+            orderSearch = new OrderSearch(_orderBL);
         }
 
         public void Start()
@@ -81,8 +84,7 @@ namespace StoreView.Menus
                 case "3":
                         //review orders
                         // menu call - take to orders menu
-                        //OrderSearch.Start();
-                        stay = false;
+                        orderSearch.Start();
                         break;
                 case "4":
                         //review inventory
@@ -98,7 +100,7 @@ namespace StoreView.Menus
                         AddProduct();
                         break;
                 case "7":
-                        //place order for customer
+                        PlaceOrder();
                         break;
                 case "8":
                         //exit program
@@ -115,7 +117,15 @@ namespace StoreView.Menus
 
         }
 
+        public void PlaceOrder(){
+            Customer customer = new Customer();
 
+            customerSearch.Start(customer);
+
+            Console.WriteLine(customer);
+
+
+        }
 
         public void CreateCustomer(){
             Customer newCustomer = new Customer();

@@ -7,5 +7,11 @@ namespace StoreData
     public interface IOrderRepository
     {
         List<Order> GetOrders();
+
+        List<Order> GetOrdersWithCustomers();
+
+        Order AddOrder(Order newOrder);
+
+
     }
 }

@@ -11,6 +11,9 @@ namespace StoreModel
         // inventory has a store
         public int InventoryLocation {get; set;}
 
+        public Location Location {get; set;}
+
+        public Product Product {get; set;}
 
 
         //the inventory name should probably basically be the singluar product
@@ -20,7 +23,7 @@ namespace StoreModel
 
         public override string ToString()
         {
-            return $"| Inventory ID: {InventoryID} | Inventory Name: {InventoryName} | Inventory Location: {InventoryLocation} | Product ID: {ProductID} | Product Quantity {ProductQuantity}";
+            return $"| Inventory ID: {InventoryID} | Inventory Name: {InventoryName} | Inventory Location: {Location.LocationName} | Product Type: {Product.ProductName} | Product Quantity {ProductQuantity}";
         }
 
     }

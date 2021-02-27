@@ -28,6 +28,7 @@ namespace StoreView.Menus
             managerMenu = new ManagerMenu(_customerBL, _productBL, _locationBL, _inventoryBL, _orderBL);
         }
 
+        //could create a facade that's an interface that inherits f
 
             
 

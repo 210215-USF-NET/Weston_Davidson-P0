@@ -21,7 +21,7 @@ namespace StoreView.Menus
 
             do{
 
-            Console.WriteLine("Enter an inventory name to view a list of inventories associated with that name");
+            Console.WriteLine("Enter an inventory name, product name, or location name to view a list of inventories associated with that name");
             Console.WriteLine("Type in \"all\" to view a list of all inventories across all locations");
             Console.WriteLine("Type in \"exit\" to return to the manager menu.");
 
@@ -66,7 +66,7 @@ namespace StoreView.Menus
             List<Inventory> customerList = _inventoryBL.GetInventory();
             foreach(Inventory x in customerList){
                 
-                if(x.InventoryName.Contains(searchTerm))
+                if(x.InventoryName.Contains(searchTerm) || x.Location.LocationName.Contains(searchTerm) || x.Product.ProductName.Contains(searchTerm))
                 {
                     line.LineSeparate();
                     Console.WriteLine(x);
@@ -76,12 +76,12 @@ namespace StoreView.Menus
 
             if (tracker == 0){
                 line.LineSeparate();
-                Console.WriteLine("No results found! Please double-check inventory name spelling. \nReminder: This search system is Case Sensitive :)");
+                Console.WriteLine("No results found! Please double-check spelling. \nReminder: This search system is Case Sensitive :)");
             }
 
             line.LineSeparate();
 
-            Console.WriteLine("Press enter to continue.");
+            Console.WriteLine("Here are your results! Press enter to search again.");
             Console.ReadLine();
 
         }

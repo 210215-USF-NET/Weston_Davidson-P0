@@ -27,7 +27,19 @@ namespace StoreData
 
         public List<Inventory> GetInventory()
         {
-            return _context.Inventories.Select(x => _mapper.ParseInventory(x)).ToList();
+            //retrieve all inventories
+            List<Inventory> inventorys = _context.Inventories.Select(x => _mapper.ParseInventory(x)).ToList();
+            //for each inventory
+            foreach(Inventory inventory in inventorys){
+            //assign a location object to it (one inventory can only have one location)
+                Entity.Location location = _context.Locations.Find(inventory.InventoryLocation);
+                Entity.Product product = _context.Products.Find(inventory.ProductID);
+                inventory.Location = _mapper.ParseLocation(location);
+                inventory.Product = _mapper.ParseProduct(product);
+            }
+
+            return inventorys;
+        
         }
     }
 }

@@ -34,7 +34,7 @@ namespace StoreView
 
 			IMapper shopMapper = new ShopMapper();
 
-			IMenu menu = new MainMenu(new CustomerBL(new CustomerRepoDB(context, shopMapper)), new ProductBL(new ProductRepoDB(context, shopMapper)), new LocationBL(new LocationRepoDB(context, shopMapper)), new InventoryBL(new InventoryRepoDB(context, shopMapper)), new OrderBL(new OrderRepoFile()));
+			IMenu menu = new MainMenu(new CustomerBL(new CustomerRepoDB(context, shopMapper)), new ProductBL(new ProductRepoDB(context, shopMapper)), new LocationBL(new LocationRepoDB(context, shopMapper)), new InventoryBL(new InventoryRepoDB(context, shopMapper)), new OrderBL(new OrderRepoDB(context, shopMapper)));
 			menu.Start(); 
 
 

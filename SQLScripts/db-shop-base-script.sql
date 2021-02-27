@@ -48,6 +48,8 @@ ALTER TABLE product
 ADD manufacturer varchar(50);
 */
 
+select * from inventory;
+
 CREATE TABLE inventory (
     inventory_id int IDENTITY(20000, 1) PRIMARY KEY,	
 	inventory_name varchar(100) NOT NULL,
@@ -65,6 +67,7 @@ CREATE TABLE inventory (
 ALTER TABLE inventory
 ALTER COLUMN product_quantity int;
 */
+--select * from location;
 
 CREATE TABLE cart (
 	cart_id int IDENTITY(80000, 1) PRIMARY KEY,
@@ -160,3 +163,31 @@ select * from inventory INNER JOIN location ON inventory.location_id = location.
 
 
 -- need to create queries that would retrieve/update/delete data as needed i think?
+
+
+
+
+-- VIEWS FOR INVENTORIES AT SPECIFIED LOCATIONS
+GO
+CREATE VIEW tampaView AS
+SELECT *
+FROM inventory
+WHERE location_id = '20000';
+
+
+GO
+CREATE VIEW orlandoView AS
+SELECT *
+FROM inventory
+WHERE location_id = '20001';
+
+
+GO
+select * from location;
+
+
+-- query the views
+GO
+SELECT * from tampaView;
+
+SELECT * from orlandoView;

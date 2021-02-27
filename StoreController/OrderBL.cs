@@ -14,7 +14,7 @@ namespace StoreController
         }
 
         public List<Order> GetOrders(){
-            return _repo.GetOrders();
+            return _repo.GetOrdersWithCustomers();
         }
 
 

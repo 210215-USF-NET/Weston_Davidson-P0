@@ -13,11 +13,22 @@ namespace StoreModel
 
         //public List<Product> ProductsPurchased {get; set;}
 
-        public Customer CustomerID { get; set; }
+        public int CustomerID { get; set; }
 
-        public Location LocationID { get; set; }
+        public int LocationID { get; set; }
 
-        public Cart CartID { get; set; }
+        public int CartID { get; set; }
 
+        public Customer Customer {get; set;}
+
+        public string OrdersWithCustomers(){
+            return $"| Order ID: {OrderID} | Order Date: {OrderDate} | Customer Name: {Customer.FName} | Location ID: {LocationID}";
+        }
+
+        public override string ToString()
+        {
+            
+            return $"| Order ID: {OrderID} | Order Date: {OrderDate} | Customer ID: {CustomerID} | Location ID: {LocationID}";
+        }
     }
 }

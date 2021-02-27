@@ -1,6 +1,7 @@
 using Entity = StoreData.Entities;
 using Model = StoreModel;
 using System.Linq;
+
 namespace StoreData
 {
     public class ShopMapper : IMapper
@@ -132,14 +133,36 @@ namespace StoreData
 
         public Model.Order ParseOrder(Entities.Order order)
         {
+            //if this is a new order, pass in this info
+            if (order.OrderId == 0)
+            {
             return new Model.Order
             {
                 OrderID = order.OrderId,
                 OrderDate = order.OrderDate,
-                CustomerID = ParseCustomer(order.Customer),
-                LocationID = ParseLocation(order.Location),
-                CartID = ParseCart(order.Cart)
+                CustomerID = order.CustomerId,
+                LocationID = order.LocationId,
+                CartID = order.CartId
             };
+            }
+            //otherwise, we are grabbing an existing order
+            //an existing order will have an existing customer, cart,
+            //and location associated with it.
+            else
+            {
+                return new Model.Order{
+                OrderID = order.OrderId,
+                OrderDate = order.OrderDate,
+                CustomerID = order.CustomerId,
+                LocationID = order.LocationId,
+                CartID = order.CartId,
+                
+                };
+                
+
+            }
+
+
         }
 
         public Entity.Order ParseOrder(StoreModel.Order order)
@@ -147,9 +170,9 @@ namespace StoreData
             return new Entity.Order
             {
                 OrderDate = order.OrderDate,
-                Customer = ParseCustomer(order.CustomerID),
-                Location = ParseLocation(order.LocationID),
-                Cart = ParseCart(order.CartID)
+                CustomerId = order.CustomerID,
+                LocationId = order.LocationID,
+                CartId = order.CartID
             };
         }
 

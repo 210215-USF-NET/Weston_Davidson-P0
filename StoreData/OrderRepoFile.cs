@@ -41,5 +41,10 @@ namespace StoreData
 
             return JsonSerializer.Deserialize<List<Order>>(jsonString);
         }
+
+        public List<Order> GetOrdersWithCustomers()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

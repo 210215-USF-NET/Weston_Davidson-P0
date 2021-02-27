@@ -57,7 +57,7 @@ namespace StoreView.Menus
             List<Order> orderList = _orderBL.GetOrders();
             foreach(Order order in orderList){
                 line.LineSeparate();
-                Console.WriteLine(order);
+                Console.WriteLine(order.OrdersWithCustomers());
             }
             line.LineSeparate();
         }
@@ -70,14 +70,13 @@ namespace StoreView.Menus
             LineSeparator line =  new LineSeparator();
             List<Order> orderList = _orderBL.GetOrders();
             foreach(Order order in orderList){
-                //TODO - THIS!!!
-                /*
-                if(order.FName.Contains(searchTerm) || customer.LName.Contains(searchTerm)){
+
+                if(order.Customer.FName.Contains(searchTerm) || order.Customer.LName.Contains(searchTerm) ){
                     line.LineSeparate();
-                    Console.WriteLine(customer);
+                    Console.WriteLine(order.OrdersWithCustomers());
                     tracker++;
                 }
-                */
+
             }
 
             if (tracker == 0){
