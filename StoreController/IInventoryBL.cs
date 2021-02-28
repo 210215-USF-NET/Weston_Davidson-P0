@@ -11,5 +11,7 @@ namespace StoreController
     void AddInventory(Inventory newInventory);
 
         List<Inventory> GetInventory();
+
+        void UpdateInventory(Inventory inventoryForUpdating);
     }
 }

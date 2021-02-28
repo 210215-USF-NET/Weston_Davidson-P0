@@ -21,7 +21,7 @@ namespace StoreView.Menus
 
         private ICustSearch customerSearch;
         private IProductSearch productSearch;
-        private IMenu inventorySearch;
+        private IInventorySearch inventorySearch;
         private IMenu orderSearch;
 
         public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL, ICartBL cartBL, ICartProductsBL cartProductsBL){
@@ -35,7 +35,7 @@ namespace StoreView.Menus
 
             //generate menus necessary for managermenu access
             customerSearch = new CustSearch(_customerBL);
-            productSearch = new ProductSearch(_productBL, _cartProductsBL);
+            productSearch = new ProductSearch(_productBL, _cartProductsBL, _inventoryBL);
             inventorySearch = new InventorySearch(_inventoryBL);
             orderSearch = new OrderSearch(_orderBL);
         }
@@ -52,14 +52,15 @@ namespace StoreView.Menus
             Console.WriteLine("[0] Add a new Customer");
             Console.WriteLine("[1] Search for Customers");
             Console.WriteLine("[2] Add Inventory to Store");
-            Console.WriteLine("[3] Review Orders");
-            Console.WriteLine("[4] Review Inventory");
-            Console.WriteLine("[5] Review Products");
-            Console.WriteLine("[6] Add new Product");
-            Console.WriteLine("[7] Place order for Customer");
+            Console.WriteLine("[3] Update an existing Inventory");
+            Console.WriteLine("[4] Review Orders");
+            Console.WriteLine("[5] Review Inventory");
+            Console.WriteLine("[6] Review Products");
+            Console.WriteLine("[7] Add new Product");
+            Console.WriteLine("[8] Place order for Customer");
             //place orders as manager
 
-            Console.WriteLine("[8] Exit");
+            Console.WriteLine("[9] Exit");
 
             String userInput = Console.ReadLine();
 
@@ -86,32 +87,37 @@ namespace StoreView.Menus
                         //BL Call - add inventory to store
                         AddInventory();
                         break;
+
                 case "3":
+                        //UPDATE EXISTING INVENTORY
+                        //*******************************
+                        inventorySearch.StartUpdateInventories();
+                        break;
+                case "4":
                         //review orders
                         // menu call - take to orders menu
                         orderSearch.Start();
                         break;
-                case "4":
+                case "5":
                         //review inventory
                         // menu call - take to inventory menu
                         inventorySearch.Start();
                         break;
-                case "5":
+                case "6":
                         //search products
                         productSearch.Start();
                         break;
-                case "6":
+                case "7":
                         //add new product
                         AddProduct();
                         break;
-                case "7":
+                case "8":
                         PlaceOrder();
                         break;
-                case "8":
+                case "9":
                         //exit program
                         System.Environment.Exit(0);
                         break;
-
                 default :
                 Console.WriteLine("Not a valid menu option!");
                 break;
@@ -151,11 +157,10 @@ namespace StoreView.Menus
 
                 default:
                 Console.WriteLine("Not a valid menu option!");
-
                 break;
             }
             Console.WriteLine(location);
-
+            
             }
 
             //Console.WriteLine(customer);
@@ -164,20 +169,32 @@ namespace StoreView.Menus
             
             Cart cart = _cartBL.FindCart(customer.CustomerID);
 
+
+            //before we start assigning products to carts, we need to know our inventory ID list to pass into the product search
+            List<Inventory> inventories = _inventoryBL.GetInventory();
+            List<Inventory> specificInventories = new List<Inventory>();
+            foreach (Inventory i in inventories){
+                if(i.InventoryLocation == location.LocationID){
+                    specificInventories.Add(i);
+                }
+            }
+
             //THIS is where we would want to call our product search menu
             // we want to basically run this, then on complete, create a new cartproduct object
             // we can check against inventory amount here!!!
-            productSearch.Start(location, cart.CartID);
-            Product product = new Product();
+
+            productSearch.Start(location, cart.CartID, inventories);
+
+            
 
 
-            /* add soon
-            List<CartProducts> cartProducts = _cartProductsBL.FindCartProducts(customer.CustomerID, product.productID, productCount); 
+            List<CartProducts> cartProducts = _cartProductsBL.FindCartProducts(cart.CartID); 
 
             foreach(CartProducts p in cartProducts){
                 Console.WriteLine(p);
             }
-            */
+            
+            
 
 
             //now that we have a cart, we need to find products
@@ -285,6 +302,8 @@ namespace StoreView.Menus
             _inventoryBL.AddInventory(newInventory);
             Console.WriteLine("Inventory update successful! Press enter to continue.");
             Console.ReadLine();
+
+
 
 
 

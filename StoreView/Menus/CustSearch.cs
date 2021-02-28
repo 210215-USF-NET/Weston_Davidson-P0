@@ -185,7 +185,7 @@ namespace StoreView.Menus
                     Console.WriteLine("This is not a valid menu option!");
                     break;
                 }
-
+                
             }
 
             line.LineSeparate();

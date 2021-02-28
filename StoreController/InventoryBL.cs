@@ -24,5 +24,10 @@ namespace StoreController
         {
             return _repo.GetInventory();
         }
+
+        public void UpdateInventory(Inventory inventoryForUpdating)
+        {
+            _repo.UpdateInventory(inventoryForUpdating);
+        }
     }
 }

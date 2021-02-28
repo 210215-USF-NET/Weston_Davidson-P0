@@ -41,5 +41,20 @@ namespace StoreData
             return inventorys;
         
         }
+
+        public void UpdateInventory(Inventory inventoryForUpdate)
+        {
+            //find details for old inventory
+            Entity.Inventory oldInventory = _context.Inventories.Find(inventoryForUpdate.InventoryID);
+            oldInventory.ProductQuantity = inventoryForUpdate.ProductQuantity;
+            
+            _context.Inventories.Update(oldInventory);
+
+            //_context.Entry(oldInventory).CurrentValues.SetValues(_mapper.ParseInventory(inventoryForUpdate).ProductQuantity);
+            
+            _context.SaveChanges();
+
+            _context.ChangeTracker.Clear();
+        }
     }
 }

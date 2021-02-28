@@ -8,5 +8,7 @@ namespace StoreData
         List<Inventory> GetInventory();
 
         Inventory AddInventory(Inventory newInventory);
+
+        void UpdateInventory(Inventory inventoryForUpdate);
     }
 }

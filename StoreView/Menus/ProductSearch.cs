@@ -12,10 +12,13 @@ namespace StoreView.Menus
         private IProductBL _productBL;
         private ICartProductsBL _cartProductsBL;
 
-        public ProductSearch(IProductBL productBL, ICartProductsBL cartProductsBL)
+        private IInventoryBL _inventoryBL;
+
+        public ProductSearch(IProductBL productBL, ICartProductsBL cartProductsBL, IInventoryBL inventoryBL)
         {
             _productBL = productBL;
             _cartProductsBL = cartProductsBL;
+            _inventoryBL = inventoryBL;
         }
 
         public void Start()
@@ -55,7 +58,7 @@ namespace StoreView.Menus
 
         }
 
-        public void Start(Location location, int cartID)
+        public void Start(Location location, int cartID, List<Inventory> inventories)
         {
             Boolean stay = true;
 
@@ -64,8 +67,8 @@ namespace StoreView.Menus
 
                 Console.WriteLine("Enter a product name, or manufacturer to filter the list of products!.");
                 Console.WriteLine("Once you find a product, specify quantity and confirm if you would like to add that product to the order.");
-                Console.WriteLine("Type in \"all\" to view a list of all customers");
-                Console.WriteLine("Type in \"exit\" to cancel product ordering process.");
+                Console.WriteLine("Type in \"all\" to view a list of all products");
+                Console.WriteLine("Type in \"exit\" to finish the product ordering process.");
 
 
 
@@ -75,6 +78,7 @@ namespace StoreView.Menus
                 {
                     case "exit":
                         //return to manager menu - value "true" should still be assigned to manager menu loop.
+                        //we will process the cartproduct list here adn return??
                         stay = false;
                         break;
                     case "all":
@@ -83,7 +87,7 @@ namespace StoreView.Menus
                         break;
                     default:
 
-                        GetFilteredProductsForProcessing(userInput, cartID);
+                        GetFilteredProductsForProcessing(userInput, cartID, inventories, location);
                         break;
                 }
 
@@ -131,7 +135,7 @@ namespace StoreView.Menus
         }
 
 
-        public void GetFilteredProductsForProcessing(string searchTerm, int cartID)
+        public void GetFilteredProductsForProcessing(string searchTerm, int cartID, List<Inventory> inventories, Location location)
         {
             Product foundProduct = new Product();
             int tracker = 0;
@@ -177,11 +181,35 @@ namespace StoreView.Menus
                     CartProducts cartProduct = new CartProducts();
                     Console.WriteLine("Please enter how many you would like to order: ");
                     cartProduct.ProductCount = Int32.Parse(Console.ReadLine());
+                    List<Inventory> inventoriesFiltered = new List<Inventory>();
+                    //we need to check if the specified inventory has said product in stock for the amount desired
+                    foreach (Inventory i in inventories){
+                        if(i.ProductID == foundProduct.ProductID && i.InventoryLocation == location.LocationID)
+                        {
+                            inventoriesFiltered.Add(i);
+                        }
+                    }
+                    
+                    Inventory realInventory = inventoriesFiltered[0];
+                    
+                    if (realInventory.ProductQuantity < cartProduct.ProductCount)
+                    {
+                        Console.WriteLine($"Sorry, we only have {realInventory.ProductQuantity} left in stock at {location.LocationName}.\nPlease enter a lower quantity");
+                        Console.WriteLine("Press enter to continue.");
+                        break;
+                    }
+                    
                     cartProduct.CartID = cartID;
                     cartProduct.ProductID = foundProduct.ProductID;
+                    realInventory.ProductQuantity = realInventory.ProductQuantity - cartProduct.ProductCount.Value;
+
+                    
+                    Console.WriteLine($"current inventory value: {realInventory.ProductQuantity}");
+
+                    
 
                     _cartProductsBL.AddCartProduct(cartProduct);
-
+                    _inventoryBL.UpdateInventory(realInventory);
                     Console.WriteLine("Product added to cart successfully!");
                     Console.WriteLine("Press enter to continue.");
                     Console.ReadLine();
@@ -203,6 +231,7 @@ namespace StoreView.Menus
             line.LineSeparate();
 
         }
+
 
     }
 }

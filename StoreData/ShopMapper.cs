@@ -99,7 +99,7 @@ namespace StoreData
         {
             return new Entity.Inventory
             {
-                //InventoryId = inventory.InventoryID,
+                InventoryId = inventory.InventoryID,
                 ProductId = inventory.ProductID,
                 ProductQuantity = inventory.ProductQuantity,
                 LocationId = inventory.InventoryLocation,
