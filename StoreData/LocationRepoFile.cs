@@ -29,5 +29,10 @@ namespace StoreData
 
             return JsonSerializer.Deserialize<List<Location>>(jsonString);
         }
+
+        public Location GetSpecifiedLocation(int locationID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -9,5 +9,7 @@ namespace StoreData
     {
         List<Location> GetLocations();
 
+        Location GetSpecifiedLocation(int locationID);
+
     }
 }

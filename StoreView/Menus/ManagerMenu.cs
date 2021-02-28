@@ -13,24 +13,29 @@ namespace StoreView.Menus
         private IProductBL _productBL;
         private ILocationBL _locationBL;
         private IOrderBL _orderBL;
-
         private IInventoryBL _inventoryBL;
-        private ICustSearch customerSearch;
-        private IMenu productSearch;
-        private IMenu inventorySearch;
 
+        private ICartBL _cartBL;
+
+        private ICartProductsBL _cartProductsBL;
+
+        private ICustSearch customerSearch;
+        private IProductSearch productSearch;
+        private IMenu inventorySearch;
         private IMenu orderSearch;
 
-        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL){
+        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL, ICartBL cartBL, ICartProductsBL cartProductsBL){
             _customerBL = customerBL;
             _productBL = productBL;
             _locationBL = locationBL;
             _orderBL = orderBL;
             _inventoryBL = inventoryBL;
+            _cartBL = cartBL;
+            _cartProductsBL = cartProductsBL;
 
             //generate menus necessary for managermenu access
             customerSearch = new CustSearch(_customerBL);
-            productSearch = new ProductSearch(_productBL);
+            productSearch = new ProductSearch(_productBL, _cartProductsBL);
             inventorySearch = new InventorySearch(_inventoryBL);
             orderSearch = new OrderSearch(_orderBL);
         }
@@ -122,7 +127,69 @@ namespace StoreView.Menus
 
             customerSearch.Start(customer);
 
-            Console.WriteLine(customer);
+
+
+            //we have the customer
+            //we need the location next
+            Boolean stay = true;
+            Location location = new Location();
+
+            while(stay){
+            Console.WriteLine("Please select customer/store location");
+            Console.WriteLine("[0] Tampa");
+            Console.WriteLine("[1] Orlando");
+            string userInput = Console.ReadLine();
+            switch (userInput){
+                case "0":
+                location = _locationBL.GetSpecifiedLocation(20000);
+                stay = false;
+                break;
+                case "1":
+                location = _locationBL.GetSpecifiedLocation(20001);
+                stay = false;
+                break;
+
+                default:
+                Console.WriteLine("Not a valid menu option!");
+
+                break;
+            }
+            Console.WriteLine(location);
+
+            }
+
+            //Console.WriteLine(customer);
+            //now, with both a customer and location, we can create a cart OR call a cart
+            //if the customer's cart already exists, it will use that cart
+            
+            Cart cart = _cartBL.FindCart(customer.CustomerID);
+
+            //THIS is where we would want to call our product search menu
+            // we want to basically run this, then on complete, create a new cartproduct object
+            // we can check against inventory amount here!!!
+            productSearch.Start(location, cart.CartID);
+            Product product = new Product();
+
+
+            /* add soon
+            List<CartProducts> cartProducts = _cartProductsBL.FindCartProducts(customer.CustomerID, product.productID, productCount); 
+
+            foreach(CartProducts p in cartProducts){
+                Console.WriteLine(p);
+            }
+            */
+
+
+            //now that we have a cart, we need to find products
+            //then add them to a new cartproducts table so the cart
+            //can reference them
+            //we will call cartproduct BL to create a new cartproduct
+            //every time something is added to the inventory.
+            //then, we can return a list of cartproducts after?
+
+
+
+            //then create an order when products/total are ready!
 
 
         }

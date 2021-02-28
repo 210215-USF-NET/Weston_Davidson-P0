@@ -11,7 +11,7 @@ namespace StoreData
             return new Model.Cart
             {
                 CartID = cart.CartId,
-                customerID = cart.CustomerId,
+                customerID = cart.CustomerId
 
             };
         }
@@ -21,7 +21,7 @@ namespace StoreData
             return new Entity.Cart
             {
                 CartId = cart.CartID,
-                CustomerId = cart.customerID,
+                CustomerId = cart.customerID
 
             };
         }

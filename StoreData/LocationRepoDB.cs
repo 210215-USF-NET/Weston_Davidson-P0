@@ -25,5 +25,12 @@ namespace StoreData
 
         
         }
+
+        public Location GetSpecifiedLocation(int locationID)
+        {
+            
+            Entities.Location location = _context.Locations.Find(locationID);
+            return _mapper.ParseLocation(location);
+        }
     }
 }

@@ -32,5 +32,10 @@ namespace StoreController
             return selectedLocation;
 
         }
+
+        public Location GetSpecifiedLocation(int locationID){
+            Location location = _repo.GetSpecifiedLocation(locationID);
+            return location;
+        }
     }
 }

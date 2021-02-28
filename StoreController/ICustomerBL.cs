@@ -8,7 +8,6 @@ namespace StoreController
     public interface ICustomerBL
     {
         
-        int GenerateID();
         
 
         void AddCustomer(Customer newCustomer);

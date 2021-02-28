@@ -11,5 +11,7 @@ namespace StoreController
 
         Location FilterLocationByName(string name);
 
+        public Location GetSpecifiedLocation(int locationID);
+
     }
 }

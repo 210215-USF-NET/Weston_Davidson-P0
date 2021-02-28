@@ -9,23 +9,14 @@ namespace StoreView.Menus
     {
             private IMenu managerMenu;
 
-            private ICustomerBL _customerBL;
-            private IProductBL _productBL;
-            private ILocationBL _locationBL;
-            private IOrderBL _orderBL;
 
-            private IInventoryBL _inventoryBL;
 
-        public MainMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL){
-            _customerBL = customerBL;
-            _productBL = productBL;
-            _locationBL = locationBL;
-            _orderBL = orderBL;
-            _inventoryBL = inventoryBL;
+        public MainMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL, ICartBL cartBL, ICartProductsBL cartProductsBL){
+
 
 
             //create required menu views in constructor, pass in required BL/DL connections
-            managerMenu = new ManagerMenu(_customerBL, _productBL, _locationBL, _inventoryBL, _orderBL);
+            managerMenu = new ManagerMenu(customerBL, productBL, locationBL, inventoryBL, orderBL, cartBL, cartProductsBL);
         }
 
         //could create a facade that's an interface that inherits f

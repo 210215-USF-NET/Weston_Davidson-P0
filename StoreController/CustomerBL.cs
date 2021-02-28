@@ -31,12 +31,6 @@ namespace StoreController
         }
 
 
-        public int GenerateID(){
-            //this will need to be replaced with a way to check against existing DB values later on
-            int CustomerID = RNG.RandomGen();
-            return CustomerID;
-
-        }
         
     }
 }
