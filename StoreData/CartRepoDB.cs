@@ -41,6 +41,11 @@ namespace StoreData
 
             
             List<Entity.Cart> cartFound = _context.Carts.Where(x => x.CustomerId == customer).ToList();
+            if(cartFound.Count == 0){
+                Cart newCart = AddCart(customerID);
+                return newCart;
+            }
+            
             Entity.Cart finalCart = cartFound.First();
             Model.Cart modelCart = _mapper.ParseCart(finalCart); 
             

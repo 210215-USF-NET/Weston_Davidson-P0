@@ -32,7 +32,7 @@ namespace StoreData
             return _context.Cartproducts.Select(x => _mapper.ParseCartProduct(x)).ToList();
         }
 
-        public List<CartProducts> FindCartProducts(int cartID, int ProductID, int productCount){
+        public List<CartProducts> FindCartProducts(int cartID){
             List<Entity.Cartproduct> entityCart = _context.Cartproducts.Where(x => x.CartId.Equals(cartID)).ToList();
 
             List<Model.CartProducts> modelCartProducts = new List<CartProducts>();

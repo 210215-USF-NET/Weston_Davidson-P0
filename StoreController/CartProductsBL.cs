@@ -24,8 +24,8 @@ namespace StoreController
         }
 
 
-        public List<CartProducts> FindCartProducts(int cartID, int ProductID, int productCount){
-            return _repo.FindCartProducts(cartID, ProductID, productCount);
+        public List<CartProducts> FindCartProducts(int cartID){
+            return _repo.FindCartProducts(cartID);
 
         }
     }

@@ -13,6 +13,11 @@ namespace StoreController
             _repo = repo;
         }
 
+        public Order AddOrder(Order newOrder)
+        {
+            return _repo.AddOrder(newOrder);
+        }
+
         public List<Order> GetOrders(){
             return _repo.GetOrdersWithCustomers();
         }

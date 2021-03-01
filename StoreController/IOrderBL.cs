@@ -7,5 +7,7 @@ namespace StoreController
     public interface IOrderBL
     {
         List<Order> GetOrders();
+
+        Order AddOrder(Order newOrder);
     }
 }

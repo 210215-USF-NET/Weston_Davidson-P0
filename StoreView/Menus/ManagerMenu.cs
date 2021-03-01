@@ -182,9 +182,14 @@ namespace StoreView.Menus
             //THIS is where we would want to call our product search menu
             // we want to basically run this, then on complete, create a new cartproduct object
             // we can check against inventory amount here!!!
-
+            try{
             productSearch.Start(location, cart.CartID, inventories);
-
+            } catch (System.ArgumentOutOfRangeException){
+                Console.WriteLine("Sorry, the requested product does not exist at your location.\nPlease try again.");
+                Console.WriteLine("Press enter to continue");
+                Console.ReadLine();
+                productSearch.Start(location, cart.CartID, inventories);
+            }
             
 
 
@@ -193,9 +198,22 @@ namespace StoreView.Menus
             foreach(CartProducts p in cartProducts){
                 Console.WriteLine(p);
             }
+
+            //we now have EVERYTHING ready (I think)
             
+            //time to process the order
+            Order finalizedOrder = new Order();
+
+            finalizedOrder.CartID = cart.CartID;
+            finalizedOrder.Customer = customer;
+            finalizedOrder.CustomerID = customer.CustomerID;
+            finalizedOrder.LocationID = location.LocationID;
+            finalizedOrder.OrderDate = DateTime.Now;
+
             
 
+
+            _orderBL.AddOrder(finalizedOrder);
 
             //now that we have a cart, we need to find products
             //then add them to a new cartproducts table so the cart

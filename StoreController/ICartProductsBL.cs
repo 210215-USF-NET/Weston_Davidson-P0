@@ -11,7 +11,7 @@ namespace StoreController
 
         List<CartProducts> GetCartProducts();
 
-        List<CartProducts> FindCartProducts(int cartID, int ProductID, int productCount);
+        List<CartProducts> FindCartProducts(int cartID);
         
     }
 }

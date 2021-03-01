@@ -191,3 +191,10 @@ GO
 SELECT * from tampaView;
 
 SELECT * from orlandoView;
+
+
+select * from product;
+
+select * from cart;
+
+select * from orders;
