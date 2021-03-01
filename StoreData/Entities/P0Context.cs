@@ -15,6 +15,7 @@ namespace StoreData.Entities
         public P0Context(DbContextOptions<P0Context> options)
             : base(options)
         {
+            
         }
 
         public virtual DbSet<Cart> Carts { get; set; }

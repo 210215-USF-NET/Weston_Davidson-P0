@@ -29,7 +29,7 @@ namespace StoreController
 
         }
 
-        public void RemoveCartProducts(List<CartProducts> cartProducts)
+        public void RemoveCartProducts(CartProducts cartProducts)
         {
             _repo.RemoveCartProducts(cartProducts);
         }

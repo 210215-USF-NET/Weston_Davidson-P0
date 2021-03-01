@@ -14,6 +14,6 @@ namespace StoreController
         List<CartProducts> FindCartProducts(int cartID);
         
 
-        void RemoveCartProducts(List<CartProducts> cartProducts);
+        void RemoveCartProducts(CartProducts cartProducts);
     }
 }

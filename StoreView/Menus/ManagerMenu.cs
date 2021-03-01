@@ -283,7 +283,10 @@ namespace StoreView.Menus
                 
             }
             //flush the cart once the order is complete.
-            _cartProductsBL.RemoveCartProducts(cartProducts);
+            foreach(CartProducts cartprod in cartProducts){
+            _cartProductsBL.RemoveCartProducts(cartprod);
+
+            }
 
 
             }

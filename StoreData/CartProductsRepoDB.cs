@@ -32,35 +32,37 @@ namespace StoreData
             return _context.Cartproducts.Select(x => _mapper.ParseCartProduct(x)).ToList();
         }
 
-        public List<CartProducts> FindCartProducts(int cartID){
-            List<Entity.Cartproduct> entityCart = _context.Cartproducts.Where(x => x.CartId.Equals(cartID)).ToList();
+        public List<CartProducts> FindCartProducts(int cartID)
+        {
+            List<Entity.Cartproduct> entityCart = _context.Cartproducts.Where(x => x.CartId.Equals(cartID)).AsNoTracking().ToList();
 
             List<Model.CartProducts> modelCartProducts = new List<CartProducts>();
 
-            if (entityCart.Count == 0){
+            if (entityCart.Count == 0)
+            {
                 CartProducts cartProducts = new CartProducts();
                 cartProducts.CartID = cartID;
                 AddCartProduct(cartProducts);
             }
-            foreach(Entity.Cartproduct cartProduct in entityCart){
+            foreach (Entity.Cartproduct cartProduct in entityCart)
+            {
                 Model.CartProducts modelCartProduct = _mapper.ParseCartProduct(cartProduct);
                 modelCartProducts.Add(modelCartProduct);
             }
-
+            _context.SaveChanges();
             return modelCartProducts;
-        
-            
+
+
+
         }
 
-        public void RemoveCartProducts(List<CartProducts> cartProducts)
+        public void RemoveCartProducts(CartProducts cartProducts)
         {
             //List<Entity.Cartproduct> ECartProduct = new List<Entity.Cartproduct>();
 
-
-            foreach(CartProducts c in cartProducts){
-                _context.Cartproducts.Remove(_mapper.ParseCartProduct(c));
-                _context.SaveChanges();
-            }
+            _context.Cartproducts.Remove(_mapper.ParseCartProduct(cartProducts));
+            //_context.Entry(cartProducts).State = EntityState.Detached;
+            _context.SaveChanges();
 
         }
     }
