@@ -154,7 +154,7 @@ namespace StoreView.Menus
             foreach (Inventory x in customerList)
             {
 
-                if (x.InventoryName.Contains(searchTerm) || x.Location.LocationName.Contains(searchTerm) || x.Product.ProductName.Contains(searchTerm) || Int32.Parse(searchTerm) == x.InventoryID)
+                if (x.InventoryName.Contains(searchTerm) || x.Location.LocationName.Contains(searchTerm) || x.Product.ProductName.Contains(searchTerm))
                 {
                     line.LineSeparate();
                     Console.WriteLine(x);

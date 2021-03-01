@@ -22,12 +22,16 @@ namespace StoreModel
 
         public Customer Customer {get; set;}
 
-
+        public Decimal TotalCost {get; set;}
 
         public string OrdersWithCustomers(){
             return $"| Order ID: {OrderID} | Order Date: {OrderDate} | Customer Name: {Customer.FName} {Customer.LName} | Location ID: {LocationID}";
         }
 
+        public string OrderWithDateFirst(){
+            return $"| Order Date: {OrderDate} | Order ID: {OrderID} | Customer ID: {CustomerID} | Location ID: {LocationID} |";
+
+        }
         public override string ToString()
         {
             

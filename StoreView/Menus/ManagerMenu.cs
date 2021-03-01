@@ -41,7 +41,7 @@ namespace StoreView.Menus
             customerSearch = new CustSearch(_customerBL, _orderBL);
             productSearch = new ProductSearch(_productBL, _cartProductsBL, _inventoryBL);
             inventorySearch = new InventorySearch(_inventoryBL);
-            orderSearch = new OrderSearch(_orderBL, _orderItemsBL);
+            orderSearch = new OrderSearch(_orderBL, _orderItemsBL, _productBL);
         }
 
         public void Start()
