@@ -4,6 +4,7 @@ using Entity = StoreData.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using StoreModel;
+using System;
 
 namespace StoreData
 {
@@ -52,5 +53,11 @@ namespace StoreData
 
         }
 
+
+        public Order GetSpecifiedOrder(DateTime exactDateTime){
+            Entity.Order order = _context.Orders.Where(x => x.OrderDate == exactDateTime).First();
+
+            return _mapper.ParseOrder(order);
+        }
     }
 }

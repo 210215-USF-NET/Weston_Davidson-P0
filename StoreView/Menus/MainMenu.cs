@@ -11,12 +11,12 @@ namespace StoreView.Menus
 
 
 
-        public MainMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL, ICartBL cartBL, ICartProductsBL cartProductsBL){
+        public MainMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL, ICartBL cartBL, ICartProductsBL cartProductsBL, IOrderItemsBL orderItemsBL){
 
 
 
             //create required menu views in constructor, pass in required BL/DL connections
-            managerMenu = new ManagerMenu(customerBL, productBL, locationBL, inventoryBL, orderBL, cartBL, cartProductsBL);
+            managerMenu = new ManagerMenu(customerBL, productBL, locationBL, inventoryBL, orderBL, cartBL, cartProductsBL, orderItemsBL);
         }
 
         //could create a facade that's an interface that inherits f

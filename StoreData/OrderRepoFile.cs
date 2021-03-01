@@ -46,5 +46,15 @@ namespace StoreData
         {
             throw new NotImplementedException();
         }
+
+        public Order GetSpecifiedOrder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Order GetSpecifiedOrder(DateTime exactDateTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

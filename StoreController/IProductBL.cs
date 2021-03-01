@@ -17,5 +17,8 @@ namespace StoreController
 
         Product GetFilteredProduct(string productName);
 
+        Product GetProductByID(int ID);
+
+
     }
 }

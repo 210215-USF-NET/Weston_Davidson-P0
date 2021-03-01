@@ -11,6 +11,7 @@ namespace StoreData.Entities
         {
             Cartproducts = new HashSet<Cartproduct>();
             Inventories = new HashSet<Inventory>();
+            Orderitems = new HashSet<Orderitem>();
         }
 
         public int ProductId { get; set; }
@@ -21,5 +22,6 @@ namespace StoreData.Entities
 
         public virtual ICollection<Cartproduct> Cartproducts { get; set; }
         public virtual ICollection<Inventory> Inventories { get; set; }
+        public virtual ICollection<Orderitem> Orderitems { get; set; }
     }
 }

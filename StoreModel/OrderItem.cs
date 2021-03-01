@@ -1,0 +1,14 @@
+namespace StoreModel
+{
+    public class OrderItem
+    {
+        public int OrderItemsID {get; set;}
+
+        public int? OrderItemsQuantity {get; set;}
+
+        public int OrderID {get; set;}
+
+        public int productID {get; set;}
+
+    }
+}

@@ -82,7 +82,7 @@ namespace StoreView.Menus
                         stay = false;
                         break;
                     case "all":
-                        //return a list of all customers
+                        //return a list of all products
                         GetAllProducts();
                         break;
                     default:
@@ -137,11 +137,41 @@ namespace StoreView.Menus
 
         public void GetFilteredProductsForProcessing(string searchTerm, int cartID, List<Inventory> inventories, Location location)
         {
+            //keeps track of the product if only 1 product is found
             Product foundProduct = new Product();
+
+            //tracks how many products have been found given the search
             int tracker = 0;
+
             LineSeparator line = new LineSeparator();
+            //retrieves a list of all products
             List<Product> productList = _productBL.GetProduct();
-            foreach (Product product in productList)
+            //new list intended to filter products down to only those that exist in inventories for our location
+            List<Product> filteredByInventoryProducts = new List<Product>();
+            //our list of filtered inventories
+            List<Inventory> filteredByLocationInventories = new List<Inventory>();
+            //filter inventories to only those at our location
+            //if the location ID of this inventory matches our stored location ID, then add it to the list of filtered locations
+            foreach(Inventory i in inventories){
+                if (i.Location.LocationID == location.LocationID){
+                    filteredByLocationInventories.Add(i);
+                }
+            }
+
+            //filter products to display only those that exist in one of the found inventories
+            //for each product that we've retrieved, make sure that the product ID matches a product ID stored in an inventory
+            foreach(Product p in productList)
+            {
+                foreach(Inventory i in filteredByLocationInventories){
+                    if (i.ProductID == p.ProductID){
+                        filteredByInventoryProducts.Add(p);
+                    }
+                }
+
+            }
+
+
+            foreach (Product product in filteredByInventoryProducts)
             {
                 if (product.ProductName.Contains(searchTerm) || product.Manufacturer.Contains(searchTerm) || product.ProductID.ToString().Contains(searchTerm))
                 {
@@ -179,8 +209,7 @@ namespace StoreView.Menus
                 {
                     case "0":
                     CartProducts cartProduct = new CartProducts();
-                    Console.WriteLine("Please enter how many you would like to order: ");
-                    cartProduct.ProductCount = Int32.Parse(Console.ReadLine());
+ 
                     List<Inventory> inventoriesFiltered = new List<Inventory>();
                     //we need to check if the specified inventory has said product in stock for the amount desired
                     foreach (Inventory i in inventories){
@@ -191,6 +220,9 @@ namespace StoreView.Menus
                     }
                     
                     Inventory realInventory = inventoriesFiltered[0];
+                    Console.WriteLine($"We currently have {realInventory.ProductQuantity} of these in stock at the {location.LocationName} location!");
+                    Console.WriteLine("Please enter how many you would like to order: ");
+                    cartProduct.ProductCount = Int32.Parse(Console.ReadLine());
                     
                     if (realInventory.ProductQuantity < cartProduct.ProductCount)
                     {

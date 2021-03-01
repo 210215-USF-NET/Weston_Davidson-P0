@@ -10,6 +10,8 @@ namespace StoreData
 
         List<Order> GetOrdersWithCustomers();
 
+        Order GetSpecifiedOrder(DateTime exactDateTime);
+
         Order AddOrder(Order newOrder);
 
 

@@ -10,6 +10,8 @@ namespace StoreData
         CartProducts AddCartProduct(CartProducts newCartProducts);
 
         List<CartProducts> FindCartProducts(int cartID);
+
+        void RemoveCartProducts(List<CartProducts> cartProducts);
     
     }
 }

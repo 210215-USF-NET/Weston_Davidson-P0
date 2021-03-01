@@ -11,5 +11,7 @@ namespace StoreData
         List<Product> GetProducts();
 
         Product AddProduct(Product newProduct);
+
+        Product GetProductByID(int ID);
     }
 }

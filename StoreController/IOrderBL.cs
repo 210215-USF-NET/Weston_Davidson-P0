@@ -8,6 +8,10 @@ namespace StoreController
     {
         List<Order> GetOrders();
 
+        Order GetSpecifiedOrder(DateTime exactDateTime);
+
         Order AddOrder(Order newOrder);
+
+
     }
 }

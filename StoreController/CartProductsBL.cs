@@ -28,5 +28,10 @@ namespace StoreController
             return _repo.FindCartProducts(cartID);
 
         }
+
+        public void RemoveCartProducts(List<CartProducts> cartProducts)
+        {
+            _repo.RemoveCartProducts(cartProducts);
+        }
     }
 }

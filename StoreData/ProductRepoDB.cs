@@ -23,6 +23,11 @@ namespace StoreData
             return newProduct;
         }
 
+        public Product GetProductByID(int ID)
+        {
+            return _mapper.ParseProduct(_context.Products.Find(ID));
+        }
+
         public List<Product> GetProducts()
         {
             return _context.Products.Select(x => _mapper.ParseProduct(x)).ToList();

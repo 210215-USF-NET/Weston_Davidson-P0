@@ -41,6 +41,12 @@ namespace StoreData
         Entity.Order ParseOrder(Model.Order order);
 
 
+        Model.OrderItem ParseOrderItem(Entity.Orderitem orderitem);
+
+        Entity.Orderitem ParseOrderItem(Model.OrderItem orderItem);
+        
+
+
 
     }
 }

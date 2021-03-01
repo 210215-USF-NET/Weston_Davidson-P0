@@ -23,8 +23,10 @@ namespace StoreData.Entities
         public virtual DbSet<Inventory> Inventories { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Orderitem> Orderitems { get; set; }
+        public virtual DbSet<OrlandoView> OrlandoViews { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-
+        public virtual DbSet<TampaView> TampaViews { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -128,10 +130,7 @@ namespace StoreData.Entities
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
 
-                entity.Property(e => e.ProductQuantity)
-                    .HasMaxLength(500)
-                    .IsUnicode(false)
-                    .HasColumnName("product_quantity");
+                entity.Property(e => e.ProductQuantity).HasColumnName("product_quantity");
 
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.Inventories)
@@ -200,6 +199,57 @@ namespace StoreData.Entities
                     .HasConstraintName("FK__orders__location__72C60C4A");
             });
 
+            modelBuilder.Entity<Orderitem>(entity =>
+            {
+                entity.HasKey(e => e.OrderItemsId)
+                    .HasName("PK__orderite__7529155558475ECA");
+
+                entity.ToTable("orderitems");
+
+                entity.Property(e => e.OrderItemsId).HasColumnName("order_items_id");
+
+                entity.Property(e => e.OrderId).HasColumnName("order_id");
+
+                entity.Property(e => e.OrderItemQuantity).HasColumnName("order_item_quantity");
+
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Orderitems)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__orderitem__order__04E4BC85");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Orderitems)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__orderitem__produ__05D8E0BE");
+            });
+
+            modelBuilder.Entity<OrlandoView>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("orlandoView");
+
+                entity.Property(e => e.InventoryId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("inventory_id");
+
+                entity.Property(e => e.InventoryName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("inventory_name");
+
+                entity.Property(e => e.LocationId).HasColumnName("location_id");
+
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.Property(e => e.ProductQuantity).HasColumnName("product_quantity");
+            });
+
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("product");
@@ -227,9 +277,33 @@ namespace StoreData.Entities
                     .HasColumnName("product_price");
             });
 
+            modelBuilder.Entity<TampaView>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("tampaView");
+
+                entity.Property(e => e.InventoryId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("inventory_id");
+
+                entity.Property(e => e.InventoryName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("inventory_name");
+
+                entity.Property(e => e.LocationId).HasColumnName("location_id");
+
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.Property(e => e.ProductQuantity).HasColumnName("product_quantity");
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
     }
 }

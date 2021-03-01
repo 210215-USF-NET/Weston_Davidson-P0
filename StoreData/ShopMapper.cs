@@ -1,6 +1,8 @@
 using Entity = StoreData.Entities;
 using Model = StoreModel;
 using System.Linq;
+using StoreModel;
+using StoreData.Entities;
 
 namespace StoreData
 {
@@ -86,7 +88,7 @@ namespace StoreData
             {
                 InventoryID = inventory.InventoryId,
                 ProductID = inventory.ProductId,
-                ProductQuantity = inventory.ProductQuantity,
+                ProductQuantity = inventory.ProductQuantity.Value,
                 InventoryLocation = inventory.LocationId,
                 InventoryName = inventory.InventoryName
 
@@ -136,29 +138,30 @@ namespace StoreData
             //if this is a new order, pass in this info
             if (order.OrderId == 0)
             {
-            return new Model.Order
-            {
-                OrderID = order.OrderId,
-                OrderDate = order.OrderDate,
-                CustomerID = order.CustomerId,
-                LocationID = order.LocationId,
-                CartID = order.CartId
-            };
+                return new Model.Order
+                {
+                    OrderID = order.OrderId,
+                    OrderDate = order.OrderDate,
+                    CustomerID = order.CustomerId,
+                    LocationID = order.LocationId,
+                    CartID = order.CartId
+                };
             }
             //otherwise, we are grabbing an existing order
             //an existing order will have an existing customer, cart,
             //and location associated with it.
             else
             {
-                return new Model.Order{
-                OrderID = order.OrderId,
-                OrderDate = order.OrderDate,
-                CustomerID = order.CustomerId,
-                LocationID = order.LocationId,
-                CartID = order.CartId,
-                
+                return new Model.Order
+                {
+                    OrderID = order.OrderId,
+                    OrderDate = order.OrderDate,
+                    CustomerID = order.CustomerId,
+                    LocationID = order.LocationId,
+                    CartID = order.CartId,
+
                 };
-                
+
 
             }
 
@@ -173,6 +176,29 @@ namespace StoreData
                 CustomerId = order.CustomerID,
                 LocationId = order.LocationID,
                 CartId = order.CartID
+            };
+        }
+
+        public Model.OrderItem ParseOrderItem(Entity.Orderitem orderitem)
+        {
+            return new Model.OrderItem
+            {
+                OrderItemsID = orderitem.OrderItemsId,
+                OrderItemsQuantity = orderitem.OrderItemQuantity,
+                OrderID = orderitem.OrderId,
+                productID = orderitem.ProductId
+
+            };
+        }
+
+        public Entity.Orderitem ParseOrderItem(Model.OrderItem orderitem)
+        {
+            return new Entity.Orderitem
+            {
+                OrderItemsId = orderitem.OrderItemsID,
+                OrderItemQuantity = orderitem.OrderItemsQuantity,
+                OrderId = orderitem.OrderID,
+                ProductId = orderitem.productID
             };
         }
 

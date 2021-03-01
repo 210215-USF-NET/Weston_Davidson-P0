@@ -89,6 +89,43 @@ namespace StoreView.Menus
             } while (stay);
 
         }
+
+/*
+        public void InventorySearchForOrdering(Location location)
+        {
+            bool stay = true;
+            do
+            {
+                Console.WriteLine($"Welcome to the product search area for our {location.LocationName} location!");
+                Console.WriteLine($"Type in \"all\" to view a list of all products at the {location.LocationName} location.");
+                Console.WriteLine("Type in \"exit\" to return to the previous menu.");
+
+
+
+                String userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "exit":
+                        //return to manager menu - value "true" should still be assigned to manager menu loop.
+                        stay = false;
+                        break;
+                    case "all":
+                        //return a list of all customers - BUILD IN METHOD TO INTERACT WITH BL
+                        GetAllInventories();
+                        break;
+                    default:
+                        GetSearchedInventories(userInput);
+                        //return specified string values of store inventories
+                        //GetSearchedStoreInventories(userInput);
+                        break;
+                }
+
+            } while (stay);
+
+        }
+        */
+
         public void GetAllInventories()
         {
             LineSeparator line = new LineSeparator();

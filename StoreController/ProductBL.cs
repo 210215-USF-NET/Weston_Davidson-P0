@@ -46,7 +46,9 @@ namespace StoreController
             return newProduct;
         }
 
-
-        
+        public Product GetProductByID(int ID)
+        {
+            return _repo.GetProductByID(ID);
+        }
     }
 }

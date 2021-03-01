@@ -17,6 +17,8 @@ namespace StoreView.Menus
 
         private ICartBL _cartBL;
 
+        private IOrderItemsBL _orderItemsBL;
+
         private ICartProductsBL _cartProductsBL;
 
         private ICustSearch customerSearch;
@@ -24,7 +26,7 @@ namespace StoreView.Menus
         private IInventorySearch inventorySearch;
         private IMenu orderSearch;
 
-        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL, ICartBL cartBL, ICartProductsBL cartProductsBL){
+        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL, ICartBL cartBL, ICartProductsBL cartProductsBL, IOrderItemsBL orderItemsBL){
             _customerBL = customerBL;
             _productBL = productBL;
             _locationBL = locationBL;
@@ -32,6 +34,7 @@ namespace StoreView.Menus
             _inventoryBL = inventoryBL;
             _cartBL = cartBL;
             _cartProductsBL = cartProductsBL;
+            _orderItemsBL = orderItemsBL;
 
             //generate menus necessary for managermenu access
             customerSearch = new CustSearch(_customerBL);
@@ -195,12 +198,56 @@ namespace StoreView.Menus
 
             List<CartProducts> cartProducts = _cartProductsBL.FindCartProducts(cart.CartID); 
 
-            foreach(CartProducts p in cartProducts){
-                Console.WriteLine(p);
+            decimal costTotal = 0;
+
+            LineSeparator line = new LineSeparator();
+
+            Console.WriteLine("Please confirm your order for processing:");
+            Console.WriteLine("Products Ordered:");
+            foreach(CartProducts x in cartProducts){
+                Product currentProduct = _productBL.GetProductByID(x.ProductID);
+
+                decimal currentProductCost = currentProduct.ProductPrice.Value * x.ProductCount.Value;
+                costTotal = costTotal + currentProductCost;
+                line.LineSeparate();
+                Console.WriteLine($"| Product Name: {currentProduct.ProductName} | Product Quantity: {x.ProductCount} | Individual Product Cost: {currentProductCost}");
+                line.LineSeparate();
+
+            }
+            line.LineSeparate();
+            Console.WriteLine($"| Total Cost: {costTotal}");
+
+
+            Console.WriteLine("Is this order accurate?");
+            Console.WriteLine("[0] Yes");
+            Console.WriteLine("[1] No");
+            string confirmationInput;
+            confirmationInput = Console.ReadLine();
+            bool stayConfirm = true;
+            bool processOrder = true;
+            while(stayConfirm){
+            switch(confirmationInput){
+                case "0":
+                Console.WriteLine("Fantastic! Please press enter to begin order processing.");
+                Console.ReadLine();
+                processOrder = true;
+                stayConfirm = false;
+                break;
+                case "1":
+                Console.WriteLine("Okay, please update your order as necessary and return to this confirmation page.");
+                Console.WriteLine("Please press enter.");
+                Console.ReadLine();
+                processOrder = false;
+                stayConfirm = false;
+                break;
+                default:
+                Console.WriteLine("Not a valid menu option!");
+                break;
+            }
             }
 
-            //we now have EVERYTHING ready (I think)
-            
+            if(processOrder == true){
+
             //time to process the order
             Order finalizedOrder = new Order();
 
@@ -210,10 +257,44 @@ namespace StoreView.Menus
             finalizedOrder.LocationID = location.LocationID;
             finalizedOrder.OrderDate = DateTime.Now;
 
-            
+
 
 
             _orderBL.AddOrder(finalizedOrder);
+
+            //we will need to retrieve the order that was just added for it's ID!
+            //this will let us process what items were included in the order
+            Order orderForItemsProcessing = _orderBL.GetSpecifiedOrder(finalizedOrder.OrderDate);
+            //create a new order item list
+            List<OrderItem> orderItems = new List<OrderItem>();
+
+            //add each new orderItem to our database
+            foreach(CartProducts p in cartProducts){
+                OrderItem orderProcessing = new OrderItem
+                {
+                    OrderItemsQuantity = p.ProductCount,
+                    OrderID = orderForItemsProcessing.OrderID,
+                    productID = p.ProductID,
+                };
+
+                _orderItemsBL.AddOrderItem(orderProcessing);
+                
+
+                
+            }
+            //flush the cart once the order is complete.
+            _cartProductsBL.RemoveCartProducts(cartProducts);
+
+
+            }
+
+
+            //we now have EVERYTHING ready (I think)
+            
+
+
+            //List<OrderItem> orderItemsToConfirm = _orderItemsBL.GetOrderItems(orderForItemsProcessing.OrderID);
+
 
             //now that we have a cart, we need to find products
             //then add them to a new cartproducts table so the cart

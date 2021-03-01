@@ -29,6 +29,10 @@ namespace StoreData
 
         }
 
+        public Product GetProductByID(int ID)
+        {
+            throw new NotImplementedException();
+        }
 
         public List<Product> GetProducts(){
 

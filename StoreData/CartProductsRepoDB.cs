@@ -49,6 +49,19 @@ namespace StoreData
 
             return modelCartProducts;
         
+            
+        }
+
+        public void RemoveCartProducts(List<CartProducts> cartProducts)
+        {
+            //List<Entity.Cartproduct> ECartProduct = new List<Entity.Cartproduct>();
+
+
+            foreach(CartProducts c in cartProducts){
+                _context.Cartproducts.Remove(_mapper.ParseCartProduct(c));
+                _context.SaveChanges();
+            }
+
         }
     }
 }
