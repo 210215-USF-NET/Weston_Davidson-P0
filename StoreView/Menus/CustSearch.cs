@@ -20,6 +20,9 @@ namespace StoreView.Menus
 
         public void Start()
         {
+            
+            Console.Clear();
+            AsciiHeader.AsciiHead();
             Boolean stay = true;
             Console.WriteLine("Welcome to customer search!");
 
@@ -39,6 +42,7 @@ namespace StoreView.Menus
                     case "exit":
                         //return to manager menu - value "true" should still be assigned to manager menu loop.
                         stay = false;
+                        Console.Clear();
                         break;
                     case "all":
                         //return a list of all customers - BUILD IN METHOD TO INTERACT WITH BL
@@ -95,6 +99,7 @@ namespace StoreView.Menus
 
         public void GetAllCustomers()
         {
+            
             LineSeparator line = new LineSeparator();
             List<Customer> customerList = _customerBL.GetCustomers();
             foreach (Customer customer in customerList)
@@ -146,7 +151,9 @@ namespace StoreView.Menus
             {
                 line.LineSeparate();
                 Console.WriteLine("Single customer found! Here is a detailed view of customer information: ");
+                line.LineSeparate();
                 Console.WriteLine(firstCustomer.ToString());
+                line.LineSeparate();
                 Console.WriteLine("Customer order history: ");
                 foreach (Order o in filteredOrderList){
                     line.LineSeparate();

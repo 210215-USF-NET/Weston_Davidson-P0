@@ -23,7 +23,9 @@ namespace StoreView.Menus
 
         public void Start()
         {
-
+            
+            Console.Clear();
+            AsciiHeader.AsciiHead();
             Boolean stay = true;
             Console.WriteLine("Welcome to the product search portal!");
 
@@ -43,6 +45,7 @@ namespace StoreView.Menus
                     case "exit":
                         //return to manager menu - value "true" should still be assigned to manager menu loop.
                         stay = false;
+                        Console.Clear();
                         break;
                     case "all":
                         //return a list of all customers - BUILD IN METHOD TO INTERACT WITH BL
@@ -60,6 +63,9 @@ namespace StoreView.Menus
 
         public void Start(Location location, int cartID, List<Inventory> inventories)
         {
+            
+            Console.Clear();
+            AsciiHeader.AsciiHead();
             Boolean stay = true;
 
             do

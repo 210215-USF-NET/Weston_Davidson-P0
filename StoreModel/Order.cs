@@ -25,7 +25,7 @@ namespace StoreModel
 
 
         public string OrdersWithCustomers(){
-            return $"| Order ID: {OrderID} | Order Date: {OrderDate} | Customer Name: {Customer.FName} | Location ID: {LocationID}";
+            return $"| Order ID: {OrderID} | Order Date: {OrderDate} | Customer Name: {Customer.FName} {Customer.LName} | Location ID: {LocationID}";
         }
 
         public override string ToString()

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace StoreView.Menus
 {
-    
+
     public class ManagerMenu : IMenu
     {
         private ICustomerBL _customerBL;
@@ -26,7 +26,8 @@ namespace StoreView.Menus
         private IInventorySearch inventorySearch;
         private IMenu orderSearch;
 
-        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL, ICartBL cartBL, ICartProductsBL cartProductsBL, IOrderItemsBL orderItemsBL){
+        public ManagerMenu(ICustomerBL customerBL, IProductBL productBL, ILocationBL locationBL, IInventoryBL inventoryBL, IOrderBL orderBL, ICartBL cartBL, ICartProductsBL cartProductsBL, IOrderItemsBL orderItemsBL)
+        {
             _customerBL = customerBL;
             _productBL = productBL;
             _locationBL = locationBL;
@@ -45,93 +46,105 @@ namespace StoreView.Menus
 
         public void Start()
         {
+            Console.Clear();
+
             Boolean stay = true;
 
-            Console.WriteLine("Welcome, manager!");
+            do
+            {
+                AsciiHeader.AsciiHead();
+                Console.WriteLine("Welcome, manager!");
+                Console.WriteLine("What would you like to do?");
 
-            do{
-            Console.WriteLine("What would you like to do?");
-
-            Console.WriteLine("[0] Add a new Customer");
-            Console.WriteLine("[1] Search for Customers");
-            Console.WriteLine("[2] Add Inventory to Store");
-            Console.WriteLine("[3] Update an existing Inventory");
-            Console.WriteLine("[4] Review Orders");
-            Console.WriteLine("[5] Review Inventory");
-            Console.WriteLine("[6] Review Products");
-            Console.WriteLine("[7] Add new Product");
-            Console.WriteLine("[8] Place order for Customer");
+                Console.WriteLine("[0] Add a new Customer");
+                Console.WriteLine("[1] Search for Customers");
+                Console.WriteLine("[2] Add Inventory to Store");
+                Console.WriteLine("[3] Update an existing Inventory");
+                Console.WriteLine("[4] Review Orders");
+                Console.WriteLine("[5] Review Inventory");
+                Console.WriteLine("[6] Review Products");
+                Console.WriteLine("[7] Add new Product");
+                Console.WriteLine("[8] Place order for Customer");
 
 
-            Console.WriteLine("[9] Exit");
+                Console.WriteLine("[9] Exit");
 
-            String userInput = Console.ReadLine();
+                String userInput = Console.ReadLine();
 
-            switch(userInput){
+                switch (userInput)
+                {
 
-                case "0":
-                    try {
-                        //BL Call - create customer -  WORKING :)
-                        //still need to implement automatic customer ID assignment
-                        CreateCustomer();
-                    }
-                    catch(Exception){
-                        Console.WriteLine("Invalid Input");
-                            
-                        continue;
-                    }
-                    break;
+                    case "0":
+                        try
+                        {
+                            //BL Call - create customer -  WORKING :)
+                            //still need to implement automatic customer ID assignment
+                            CreateCustomer();
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Invalid Input");
 
-                case "1":
-                    customerSearch.Start();
-                    break;
+                            continue;
+                        }
+                        break;
 
-                case "2":
+                    case "1":
+                        customerSearch.Start();
+                        break;
+
+                    case "2":
                         //BL Call - add inventory to store
                         AddInventory();
                         break;
 
-                case "3":
+                    case "3":
                         //UPDATE EXISTING INVENTORY
                         //*******************************
                         inventorySearch.StartUpdateInventories();
                         break;
-                case "4":
+                    case "4":
                         //review orders
                         // menu call - take to orders menu
                         orderSearch.Start();
                         break;
-                case "5":
+                    case "5":
                         //review inventory
                         // menu call - take to inventory menu
                         inventorySearch.Start();
                         break;
-                case "6":
+                    case "6":
                         //search products
                         productSearch.Start();
                         break;
-                case "7":
+                    case "7":
                         //add new product
                         AddProduct();
                         break;
-                case "8":
+                    case "8":
                         PlaceOrder();
                         break;
-                case "9":
+                    case "9":
                         //exit program
                         System.Environment.Exit(0);
                         break;
-                default :
-                Console.WriteLine("Not a valid menu option!");
-                break;
-            }
-            } while(stay);
+                    default:
+                        Console.WriteLine("Not a valid menu option!");
+                        Console.WriteLine("Press enter to continue.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
+                }
+            } while (stay);
 
 
 
         }
 
-        public void PlaceOrder(){
+        public void PlaceOrder()
+        {
+            Console.Clear();
+            AsciiHeader.AsciiHead();
             Customer customer = new Customer();
 
             customerSearch.Start(customer);
@@ -143,41 +156,47 @@ namespace StoreView.Menus
             Boolean stay = true;
             Location location = new Location();
 
-            while(stay){
-            Console.WriteLine("Please select customer/store location");
-            Console.WriteLine("[0] Tampa");
-            Console.WriteLine("[1] Orlando");
-            string userInput = Console.ReadLine();
-            switch (userInput){
-                case "0":
-                location = _locationBL.GetSpecifiedLocation(20000);
-                stay = false;
-                break;
-                case "1":
-                location = _locationBL.GetSpecifiedLocation(20001);
-                stay = false;
-                break;
+            while (stay)
+            {
+                Console.Clear();
+                AsciiHeader.AsciiHead();
+                Console.WriteLine("Please select customer store location");
+                Console.WriteLine("[0] Tampa");
+                Console.WriteLine("[1] Orlando");
+                string userInput = Console.ReadLine();
+                switch (userInput)
+                {
+                    case "0":
+                        location = _locationBL.GetSpecifiedLocation(20000);
+                        stay = false;
+                        break;
+                    case "1":
+                        location = _locationBL.GetSpecifiedLocation(20001);
+                        stay = false;
+                        break;
 
-                default:
-                Console.WriteLine("Not a valid menu option!");
-                break;
-            }
-            Console.WriteLine(location);
-            
+                    default:
+                        Console.WriteLine("Not a valid menu option!");
+                        break;
+                }
+                //Console.WriteLine(location);
+
             }
 
             //Console.WriteLine(customer);
             //now, with both a customer and location, we can create a cart OR call a cart
             //if the customer's cart already exists, it will use that cart
-            
+
             Cart cart = _cartBL.FindCart(customer.CustomerID);
 
 
             //before we start assigning products to carts, we need to know our inventory ID list to pass into the product search
             List<Inventory> inventories = _inventoryBL.GetInventory();
             List<Inventory> specificInventories = new List<Inventory>();
-            foreach (Inventory i in inventories){
-                if(i.InventoryLocation == location.LocationID){
+            foreach (Inventory i in inventories)
+            {
+                if (i.InventoryLocation == location.LocationID)
+                {
                     specificInventories.Add(i);
                 }
             }
@@ -185,18 +204,21 @@ namespace StoreView.Menus
             //THIS is where we would want to call our product search menu
             // we want to basically run this, then on complete, create a new cartproduct object
             // we can check against inventory amount here!!!
-            try{
-            productSearch.Start(location, cart.CartID, inventories);
-            } catch (System.ArgumentOutOfRangeException){
+            try
+            {
+                productSearch.Start(location, cart.CartID, inventories);
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
                 Console.WriteLine("Sorry, the requested product does not exist at your location.\nPlease try again.");
                 Console.WriteLine("Press enter to continue");
                 Console.ReadLine();
                 productSearch.Start(location, cart.CartID, inventories);
             }
-            
 
 
-            List<CartProducts> cartProducts = _cartProductsBL.FindCartProducts(cart.CartID); 
+
+            List<CartProducts> cartProducts = _cartProductsBL.FindCartProducts(cart.CartID);
 
             decimal costTotal = 0;
 
@@ -204,7 +226,8 @@ namespace StoreView.Menus
 
             Console.WriteLine("Please confirm your order for processing:");
             Console.WriteLine("Products Ordered:");
-            foreach(CartProducts x in cartProducts){
+            foreach (CartProducts x in cartProducts)
+            {
                 Product currentProduct = _productBL.GetProductByID(x.ProductID);
 
                 decimal currentProductCost = currentProduct.ProductPrice.Value * x.ProductCount.Value;
@@ -225,75 +248,80 @@ namespace StoreView.Menus
             confirmationInput = Console.ReadLine();
             bool stayConfirm = true;
             bool processOrder = true;
-            while(stayConfirm){
-            switch(confirmationInput){
-                case "0":
-                Console.WriteLine("Fantastic! Please press enter to begin order processing.");
-                Console.ReadLine();
-                processOrder = true;
-                stayConfirm = false;
-                break;
-                case "1":
-                Console.WriteLine("Okay, please update your order as necessary and return to this confirmation page.");
-                Console.WriteLine("Please press enter.");
-                Console.ReadLine();
-                processOrder = false;
-                stayConfirm = false;
-                break;
-                default:
-                Console.WriteLine("Not a valid menu option!");
-                break;
-            }
-            }
-
-            if(processOrder == true){
-
-            //time to process the order
-            Order finalizedOrder = new Order();
-
-            finalizedOrder.CartID = cart.CartID;
-            finalizedOrder.Customer = customer;
-            finalizedOrder.CustomerID = customer.CustomerID;
-            finalizedOrder.LocationID = location.LocationID;
-            finalizedOrder.OrderDate = DateTime.Now;
-
-
-
-
-            _orderBL.AddOrder(finalizedOrder);
-
-            //we will need to retrieve the order that was just added for it's ID!
-            //this will let us process what items were included in the order
-            Order orderForItemsProcessing = _orderBL.GetSpecifiedOrder(finalizedOrder.OrderDate);
-            //create a new order item list
-            List<OrderItem> orderItems = new List<OrderItem>();
-
-            //add each new orderItem to our database
-            foreach(CartProducts p in cartProducts){
-                OrderItem orderProcessing = new OrderItem
+            while (stayConfirm)
+            {
+                switch (confirmationInput)
                 {
-                    OrderItemsQuantity = p.ProductCount,
-                    OrderID = orderForItemsProcessing.OrderID,
-                    productID = p.ProductID,
-                };
-
-                _orderItemsBL.AddOrderItem(orderProcessing);
-                
-
-                
+                    case "0":
+                        Console.WriteLine("Fantastic! Please press enter to begin order processing.");
+                        Console.ReadLine();
+                        processOrder = true;
+                        stayConfirm = false;
+                        break;
+                    case "1":
+                        Console.WriteLine("Okay, please update your order as necessary and return to this confirmation page.");
+                        Console.WriteLine("Please press enter.");
+                        Console.ReadLine();
+                        processOrder = false;
+                        stayConfirm = false;
+                        break;
+                    default:
+                        Console.WriteLine("Not a valid menu option!");
+                        break;
+                }
             }
-            //flush the cart once the order is complete.
-            foreach(CartProducts cartprod in cartProducts){
-            _cartProductsBL.RemoveCartProducts(cartprod);
 
-            }
+            if (processOrder == true)
+            {
+
+                //time to process the order
+                Order finalizedOrder = new Order();
+
+                finalizedOrder.CartID = cart.CartID;
+                finalizedOrder.Customer = customer;
+                finalizedOrder.CustomerID = customer.CustomerID;
+                finalizedOrder.LocationID = location.LocationID;
+                finalizedOrder.OrderDate = DateTime.Now;
+
+
+
+
+                _orderBL.AddOrder(finalizedOrder);
+
+                //we will need to retrieve the order that was just added for it's ID!
+                //this will let us process what items were included in the order
+                Order orderForItemsProcessing = _orderBL.GetSpecifiedOrder(finalizedOrder.OrderDate);
+                //create a new order item list
+                List<OrderItem> orderItems = new List<OrderItem>();
+
+                //add each new orderItem to our database
+                foreach (CartProducts p in cartProducts)
+                {
+                    OrderItem orderProcessing = new OrderItem
+                    {
+                        OrderItemsQuantity = p.ProductCount,
+                        OrderID = orderForItemsProcessing.OrderID,
+                        productID = p.ProductID,
+                    };
+
+                    _orderItemsBL.AddOrderItem(orderProcessing);
+
+
+
+                }
+                //flush the cart once the order is complete.
+                foreach (CartProducts cartprod in cartProducts)
+                {
+                    _cartProductsBL.RemoveCartProducts(cartprod);
+
+                }
 
 
             }
 
 
             //we now have EVERYTHING ready (I think)
-            
+
 
 
             //List<OrderItem> orderItemsToConfirm = _orderItemsBL.GetOrderItems(orderForItemsProcessing.OrderID);
@@ -313,7 +341,10 @@ namespace StoreView.Menus
 
         }
 
-        public void CreateCustomer(){
+        public void CreateCustomer()
+        {
+            Console.Clear();
+            AsciiHeader.AsciiHead();
             Customer newCustomer = new Customer();
 
 
@@ -335,12 +366,18 @@ namespace StoreView.Menus
             _customerBL.AddCustomer(newCustomer);
 
             Console.WriteLine($"Customer {newCustomer.FName} {newCustomer.LName} created successfully!");
+            Console.WriteLine("Press enter to return to the managerial portal.");
+            Console.ReadLine();
+            Console.Clear();
         }
 
 
-        public void AddProduct(){
+        public void AddProduct()
+        {
+            Console.Clear();
+            AsciiHeader.AsciiHead();
             Product newProduct = new Product();
-            
+
             //newProduct.ProductID = _productBL.GenerateID();
             Console.WriteLine("Enter new Product Name:");
             newProduct.ProductName = Console.ReadLine();
@@ -355,11 +392,16 @@ namespace StoreView.Menus
 
             _productBL.AddProduct(newProduct);
             Console.WriteLine($"Product {newProduct.ProductName} created successfully!");
+            Console.WriteLine("Press enter to continue.");
+            Console.ReadLine();
 
 
         }
 
-        public void AddInventory(){
+        public void AddInventory()
+        {
+            Console.Clear();
+            AsciiHeader.AsciiHead();
             Location trackedLocation = new Location();
             Inventory newInventory = new Inventory();
             Product newProduct = new Product();
@@ -368,11 +410,12 @@ namespace StoreView.Menus
             Console.WriteLine("Please enter the appropriate information to update a store's inventory");
 
             Console.WriteLine("Enter Location Name: ");
-            
 
-            
+
+
             trackedLocation = _locationBL.FilterLocationByName(Console.ReadLine());
-            if (trackedLocation.LocationID == 0){
+            if (trackedLocation.LocationID == 0)
+            {
                 Console.WriteLine("That's not a location Name :( please try again!");
                 Console.WriteLine("Press Enter to Continue.");
                 Console.ReadLine();
@@ -384,14 +427,15 @@ namespace StoreView.Menus
             }
 
             Console.WriteLine("Create a name for your inventory: ");
-            newInventory.InventoryName=Console.ReadLine();
+            newInventory.InventoryName = Console.ReadLine();
 
             Console.WriteLine("Please enter a product name to store in this inventory: ");
             newProduct = _productBL.GetFilteredProduct(Console.ReadLine());
 
-            if (newProduct.ProductName == null){
+            if (newProduct.ProductName == null)
+            {
                 Console.WriteLine("This product does not exist in our system. Please try again :(");
-                return;   
+                return;
             }
             newInventory.ProductID = newProduct.ProductID;
 
@@ -404,7 +448,7 @@ namespace StoreView.Menus
             _inventoryBL.AddInventory(newInventory);
             Console.WriteLine("Inventory update successful! Press enter to continue.");
             Console.ReadLine();
-
+            Console.Clear();
 
 
 
@@ -413,7 +457,7 @@ namespace StoreView.Menus
 
 
             //Console.WriteLine(newInventory.InventoryLocation);
-            
+
 
 
         }

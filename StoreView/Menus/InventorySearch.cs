@@ -17,6 +17,9 @@ namespace StoreView.Menus
 
         public void Start()
         {
+            
+            Console.Clear();
+            AsciiHeader.AsciiHead();
             Boolean stay = true;
             Console.WriteLine("Welcome to inventory search!");
 
@@ -35,6 +38,7 @@ namespace StoreView.Menus
                 {
                     case "exit":
                         //return to manager menu - value "true" should still be assigned to manager menu loop.
+                        Console.Clear();
                         stay = false;
                         break;
                     case "all":
@@ -53,6 +57,9 @@ namespace StoreView.Menus
 
         public void StartUpdateInventories()
         {
+            
+            Console.Clear();
+            AsciiHeader.AsciiHead();
 
             Boolean stay = true;
             Console.WriteLine("Welcome to the inventory update system!");
@@ -147,7 +154,7 @@ namespace StoreView.Menus
             foreach (Inventory x in customerList)
             {
 
-                if (x.InventoryName.Contains(searchTerm) || x.Location.LocationName.Contains(searchTerm) || x.Product.ProductName.Contains(searchTerm))
+                if (x.InventoryName.Contains(searchTerm) || x.Location.LocationName.Contains(searchTerm) || x.Product.ProductName.Contains(searchTerm) || Int32.Parse(searchTerm) == x.InventoryID)
                 {
                     line.LineSeparate();
                     Console.WriteLine(x);
@@ -226,6 +233,7 @@ namespace StoreView.Menus
                         Console.WriteLine("Inventory updated successfully!");
                         Console.WriteLine("Press enter to continue.");
                         Console.ReadLine();
+                        Console.Clear();
 
 
 
@@ -233,6 +241,7 @@ namespace StoreView.Menus
                     case "1":
                         Console.WriteLine("Okay, please search again to find a different product. \nPress enter to continue.");
                         Console.ReadLine();
+                        Console.Clear();
                         break;
                     default:
                         Console.WriteLine("This is not a valid menu option!");

@@ -27,6 +27,10 @@ namespace StoreView.Menus
         public void Start(){
             Boolean stay = true;
             do{
+                
+                Console.Clear();
+
+                AsciiHeader.AsciiHead();
 
                 Console.WriteLine("Welcome to the SineShop Managerial application! Please proceed to the Managerial menu.");
                 Console.WriteLine("[0] Manager Menu");
