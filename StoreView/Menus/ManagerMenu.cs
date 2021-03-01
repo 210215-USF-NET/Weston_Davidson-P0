@@ -37,10 +37,10 @@ namespace StoreView.Menus
             _orderItemsBL = orderItemsBL;
 
             //generate menus necessary for managermenu access
-            customerSearch = new CustSearch(_customerBL);
+            customerSearch = new CustSearch(_customerBL, _orderBL);
             productSearch = new ProductSearch(_productBL, _cartProductsBL, _inventoryBL);
             inventorySearch = new InventorySearch(_inventoryBL);
-            orderSearch = new OrderSearch(_orderBL);
+            orderSearch = new OrderSearch(_orderBL, _orderItemsBL);
         }
 
         public void Start()
@@ -61,7 +61,7 @@ namespace StoreView.Menus
             Console.WriteLine("[6] Review Products");
             Console.WriteLine("[7] Add new Product");
             Console.WriteLine("[8] Place order for Customer");
-            //place orders as manager
+
 
             Console.WriteLine("[9] Exit");
 

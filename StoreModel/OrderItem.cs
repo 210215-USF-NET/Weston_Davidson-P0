@@ -1,3 +1,5 @@
+using System;
+
 namespace StoreModel
 {
     public class OrderItem
@@ -10,5 +12,9 @@ namespace StoreModel
 
         public int productID {get; set;}
 
+        public override string ToString()
+        {
+            return $"|Product ID: {productID} | Product Quantity: {OrderItemsQuantity}|";
+        }
     }
 }

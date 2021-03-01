@@ -28,10 +28,10 @@ namespace StoreView.Menus
             Boolean stay = true;
             do{
 
-                Console.WriteLine("Welcome to the store application! What sort of user are you?");
-                Console.WriteLine("[0] Manager");
-                Console.WriteLine("[1] Customer");
-                Console.WriteLine("[2] Exit");
+                Console.WriteLine("Welcome to the SineShop Managerial application! Please proceed to the Managerial menu.");
+                Console.WriteLine("[0] Manager Menu");
+                //Console.WriteLine("[1] Customer");
+                Console.WriteLine("[1] Exit Program");
 
                 String userInput = Console.ReadLine();
 
@@ -41,11 +41,8 @@ namespace StoreView.Menus
                     managerMenu.Start();
                     break;
                     case "1":
-                    stay = false;
-                    //client menu stuff
-                    break;
-                    case "2":
                     System.Environment.Exit(0);
+                    //client menu stuff
                     break;
                     default :
                     Console.WriteLine("Not a valid menu option!");

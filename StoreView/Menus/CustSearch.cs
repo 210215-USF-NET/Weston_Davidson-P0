@@ -10,10 +10,12 @@ namespace StoreView.Menus
     {
 
         private ICustomerBL _customerBL;
+        private IOrderBL _orderBL;
 
-        public CustSearch(ICustomerBL customerBL)
+        public CustSearch(ICustomerBL customerBL, IOrderBL orderBL)
         {
             _customerBL = customerBL;
+            _orderBL = orderBL;
         }
 
         public void Start()
@@ -110,6 +112,9 @@ namespace StoreView.Menus
             int tracker = 0;
             LineSeparator line = new LineSeparator();
             List<Customer> customerList = _customerBL.GetCustomers();
+            List<Order> orderList = _orderBL.GetOrders();
+            List<Order> filteredOrderList = new List<Order>();
+            Customer firstCustomer = new Customer();
             foreach (Customer customer in customerList)
             {
                 if (customer.FName.Contains(searchTerm) || customer.LName.Contains(searchTerm) || customer.CustomerID.ToString().Contains(searchTerm))
@@ -117,6 +122,16 @@ namespace StoreView.Menus
                     line.LineSeparate();
                     Console.WriteLine(customer);
                     tracker++;
+
+                    if(tracker == 1)
+                    {
+                        firstCustomer = customer;
+                        foreach (Order o in orderList){
+                            if (o.CustomerID == firstCustomer.CustomerID){
+                                filteredOrderList.Add(o);
+                            }
+                        }
+                    }
 
                 }
 
@@ -127,10 +142,24 @@ namespace StoreView.Menus
                 line.LineSeparate();
                 Console.WriteLine("No results found! Please double-check customer name spelling. \nReminder: This search system is Case Sensitive :)");
             }
+            if (tracker == 1)
+            {
+                line.LineSeparate();
+                Console.WriteLine("Single customer found! Here is a detailed view of customer information: ");
+                Console.WriteLine(firstCustomer.ToString());
+                Console.WriteLine("Customer order history: ");
+                foreach (Order o in filteredOrderList){
+                    line.LineSeparate();
+                    Console.WriteLine(o.ToString());
+                }
+
+
+            }
 
             line.LineSeparate();
 
         }
+
 
         public void GetFilteredCustomersForProcessing(string searchTerm, ref Customer resultingCustomer, ref bool stay)
         {

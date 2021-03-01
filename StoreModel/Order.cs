@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 
+
 namespace StoreModel
 {
     public class Order
@@ -20,6 +21,8 @@ namespace StoreModel
         public int CartID { get; set; }
 
         public Customer Customer {get; set;}
+
+
 
         public string OrdersWithCustomers(){
             return $"| Order ID: {OrderID} | Order Date: {OrderDate} | Customer Name: {Customer.FName} | Location ID: {LocationID}";

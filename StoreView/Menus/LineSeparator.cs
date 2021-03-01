@@ -6,7 +6,7 @@ namespace StoreView.Menus
     {
         
         public void LineSeparate(){
-        Console.WriteLine("--------------------------------");
+        Console.WriteLine("---------------------------------------------------------------------------");
         }
     }
 }

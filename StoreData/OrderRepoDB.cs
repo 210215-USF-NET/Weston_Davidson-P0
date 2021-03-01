@@ -45,7 +45,6 @@ namespace StoreData
                 Entity.Customer customer = _context.Customers.Find(order.CustomerID);
                 //assign customer to order object
                 order.Customer = _mapper.ParseCustomer(customer);
-
             }
             //return list of orders, now populated with customers who made them
             return orders;
