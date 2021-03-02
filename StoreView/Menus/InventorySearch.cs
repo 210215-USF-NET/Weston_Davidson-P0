@@ -6,6 +6,9 @@ using System.Collections;
 
 namespace StoreView.Menus
 {
+    /// <summary>
+    /// This class provides inventory search functions, as well as filtering options to provide specific inventory views
+    /// </summary>
     public class InventorySearch : IInventorySearch
     {
         private IInventoryBL _inventoryBL;
@@ -154,7 +157,7 @@ namespace StoreView.Menus
             foreach (Inventory x in customerList)
             {
 
-                if (x.InventoryName.Contains(searchTerm) || x.Location.LocationName.Contains(searchTerm) || x.Product.ProductName.Contains(searchTerm))
+                if (x.InventoryName.Contains(searchTerm) || x.Location.LocationName.Contains(searchTerm) || x.Product.ProductName.Contains(searchTerm) || x.InventoryID.ToString().Contains(searchTerm))
                 {
                     line.LineSeparate();
                     Console.WriteLine(x);

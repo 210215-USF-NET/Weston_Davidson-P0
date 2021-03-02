@@ -1,5 +1,9 @@
 namespace StoreModel
 {
+    
+    /// <summary>
+    /// Models our cartproducts object in our database
+    /// </summary>
     public class CartProducts
     {
 

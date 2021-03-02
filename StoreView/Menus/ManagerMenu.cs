@@ -10,6 +10,10 @@ namespace StoreView.Menus
 
     public class ManagerMenu : IMenu
     {
+        /// <summary>
+        /// The Manager Menu provides the view for managers to use as they perform regular tasks
+        /// The menu also includes a large amount of logic to process customer orders
+        /// </summary>
         private ICustomerBL _customerBL;
         private IProductBL _productBL;
         private ILocationBL _locationBL;
@@ -129,6 +133,7 @@ namespace StoreView.Menus
                         break;
                     case "9":
                         //exit program
+                        Console.Clear();
                         System.Environment.Exit(0);
                         break;
                     default:
@@ -272,6 +277,7 @@ namespace StoreView.Menus
                         Console.WriteLine("Okay, please update your order as necessary and return to this confirmation page.");
                         Console.WriteLine("Please press enter.");
                         Console.ReadLine();
+
                         processOrder = false;
                         stayConfirm = false;
                         break;
@@ -329,6 +335,8 @@ namespace StoreView.Menus
                 Log.Information("Order placed successfully");
                 Console.WriteLine("Order placed successfully!");
                 Console.WriteLine("Press enter to continue");
+                Console.ReadLine();
+                Console.Clear();
 
             }
 

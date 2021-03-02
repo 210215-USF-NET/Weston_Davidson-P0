@@ -2,6 +2,10 @@ using System;
 
 namespace StoreModel
 {
+    
+    /// <summary>
+    /// Models our orderItem object in our database
+    /// </summary>
     public class OrderItem
     {
         public int OrderItemsID {get; set;}

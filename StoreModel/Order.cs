@@ -4,6 +4,10 @@ using System;
 
 namespace StoreModel
 {
+    
+    /// <summary>
+    /// Models our order object in our database
+    /// </summary>
     public class Order
     {
         public int OrderID { get; set; }

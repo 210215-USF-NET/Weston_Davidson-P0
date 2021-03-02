@@ -1,5 +1,9 @@
 namespace StoreModel
 {
+    
+    /// <summary>
+    /// Models our product object in our database
+    /// </summary>
     public class Product
     {
         public int ProductID {get; set;}

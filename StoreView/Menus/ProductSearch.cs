@@ -4,9 +4,14 @@ using StoreController;
 using System.Collections.Generic;
 using System.Collections;
 using StoreData;
+using Serilog;
 
 namespace StoreView.Menus
 {
+    /// <summary>
+    /// This class serves as a host for any search features involving products.
+    /// This includes both general product searching to browse the catalog, as well as searching for products to add to a cart.
+    /// </summary>
     public class ProductSearch : IProductSearch
     {
         private IProductBL _productBL;
@@ -236,6 +241,13 @@ namespace StoreView.Menus
                         Console.WriteLine("Press enter to continue.");
                         break;
                     }
+                    if (cartProduct.ProductCount <= 0)
+                    {
+                        Console.WriteLine("Sorry, you've entered an invalid value. Please try again");
+                        Console.WriteLine("Press enter to continue.");
+                        Console.ReadLine();
+                        break;
+                    }
                     
                     cartProduct.CartID = cartID;
                     cartProduct.ProductID = foundProduct.ProductID;
@@ -248,6 +260,7 @@ namespace StoreView.Menus
 
                     _cartProductsBL.AddCartProduct(cartProduct);
                     _inventoryBL.UpdateInventory(realInventory);
+                    Log.Information($"product added to cart {cartProduct.ProductID}");
                     Console.WriteLine("Product added to cart successfully!");
                     Console.WriteLine("Press enter to continue.");
                     Console.ReadLine();
@@ -258,6 +271,7 @@ namespace StoreView.Menus
                     case "1":
                     Console.WriteLine("Okay, please search again to find a different product. \nPress enter to continue.");
                     Console.ReadLine();
+
                     break;
                     default:
                     Console.WriteLine("This is not a valid menu option!");

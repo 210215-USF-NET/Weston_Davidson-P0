@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace StoreModel
 {
+    
+    /// <summary>
+    /// Models our customer object in our database
+    /// </summary>
     public class Customer
     {
 

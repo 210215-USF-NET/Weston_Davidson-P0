@@ -1,5 +1,9 @@
 namespace StoreModel
 {
+    
+    /// <summary>
+    /// Models our location object in our database
+    /// </summary>
     public class Location
     {
 

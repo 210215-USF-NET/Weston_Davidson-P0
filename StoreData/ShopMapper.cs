@@ -6,6 +6,10 @@ using StoreData.Entities;
 
 namespace StoreData
 {
+    
+    /// <summary>
+    /// concrete implementation used to parse data between our efcore entities and programmer created POCOS
+    /// </summary>
     public class ShopMapper : IMapper
     {
         public Model.Cart ParseCart(Entities.Cart cart)

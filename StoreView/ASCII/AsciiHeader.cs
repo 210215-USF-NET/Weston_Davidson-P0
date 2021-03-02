@@ -9,6 +9,9 @@ using System.Threading;
 
 namespace StoreView
 {
+    /// <summary>
+    /// This class provides the ascii logo header that appears on most navigation pages in our system
+    /// </summary>
     public static class AsciiHeader
     {
 

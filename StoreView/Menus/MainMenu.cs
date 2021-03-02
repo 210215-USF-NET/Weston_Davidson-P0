@@ -7,6 +7,10 @@ namespace StoreView.Menus
 {
     public class MainMenu : IMenu
     {
+        /// <summary>
+        /// The main menu provides options to leave the program, or enter a specified portal
+        /// At the moment, only the managerial portal is listed, but there are plans for a customer menu in the future.
+        /// </summary>
             private IMenu managerMenu;
 
 

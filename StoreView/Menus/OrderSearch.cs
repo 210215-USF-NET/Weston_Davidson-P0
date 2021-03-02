@@ -8,6 +8,10 @@ using System.Linq;
 
 namespace StoreView.Menus
 {
+    /// <summary>
+    /// This class contains the order search features for my order search menu, 
+    /// as well as the different filtering options/methods associated with it.
+    /// </summary>
     public class OrderSearch : IMenu
     {
 

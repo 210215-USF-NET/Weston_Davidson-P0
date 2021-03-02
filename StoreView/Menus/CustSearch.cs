@@ -6,6 +6,10 @@ using System.Collections;
 
 namespace StoreView.Menus
 {
+    /// <summary>
+    /// This interface provides search functionality for customer database
+    /// also provides a printout of all customer orders if a single result is found
+    /// </summary>
     public class CustSearch : ICustSearch
     {
 
@@ -20,7 +24,7 @@ namespace StoreView.Menus
 
         public void Start()
         {
-            
+
             Console.Clear();
             AsciiHeader.AsciiHead();
             Boolean stay = true;
@@ -99,7 +103,7 @@ namespace StoreView.Menus
 
         public void GetAllCustomers()
         {
-            
+
             LineSeparator line = new LineSeparator();
             List<Customer> customerList = _customerBL.GetCustomers();
             foreach (Customer customer in customerList)
@@ -128,11 +132,13 @@ namespace StoreView.Menus
                     Console.WriteLine(customer);
                     tracker++;
 
-                    if(tracker == 1)
+                    if (tracker == 1)
                     {
                         firstCustomer = customer;
-                        foreach (Order o in orderList){
-                            if (o.CustomerID == firstCustomer.CustomerID){
+                        foreach (Order o in orderList)
+                        {
+                            if (o.CustomerID == firstCustomer.CustomerID)
+                            {
                                 filteredOrderList.Add(o);
                             }
                         }
@@ -155,7 +161,8 @@ namespace StoreView.Menus
                 Console.WriteLine(firstCustomer.ToString());
                 line.LineSeparate();
                 Console.WriteLine("Customer order history: ");
-                foreach (Order o in filteredOrderList){
+                foreach (Order o in filteredOrderList)
+                {
                     line.LineSeparate();
                     Console.WriteLine(o.ToString());
                 }
@@ -182,7 +189,8 @@ namespace StoreView.Menus
                     Console.WriteLine(customer);
                     tracker++;
                     //for the first found customer, store in our foundcustomer object, but don't do it again
-                    if(tracker == 1){
+                    if (tracker == 1)
+                    {
                         resultingCustomer.FName = customer.FName;
                         resultingCustomer.LName = customer.LName;
                         resultingCustomer.CustomerID = customer.CustomerID;
@@ -211,17 +219,17 @@ namespace StoreView.Menus
                 switch (Console.ReadLine())
                 {
                     case "0":
-                    stay = false;
-                    break;
+                        stay = false;
+                        break;
                     case "1":
-                    Console.WriteLine("Okay, please search again to find the correct customer. \nPress enter to continue.");
-                    Console.ReadLine();
-                    break;
+                        Console.WriteLine("Okay, please search again to find the correct customer. \nPress enter to continue.");
+                        Console.ReadLine();
+                        break;
                     default:
-                    Console.WriteLine("This is not a valid menu option!");
-                    break;
+                        Console.WriteLine("This is not a valid menu option!");
+                        break;
                 }
-                
+
             }
 
             line.LineSeparate();

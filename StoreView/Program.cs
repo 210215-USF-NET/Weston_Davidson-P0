@@ -23,13 +23,14 @@ namespace StoreView
 				.MinimumLevel.Verbose()
 				.WriteTo.File("../Logs.json")
 				.CreateLogger();
-			
+			/*
 			Log.Verbose("Verbose log message");
 			Log.Debug("Debug log message");
 			Log.Information("Information log message");
 			Log.Warning("Warning log message");
 			Log.Error("Error log message");
 			Log.Fatal("Fatal log message");
+			*/
 
 			//get the config file
 			var configuration = new ConfigurationBuilder()
