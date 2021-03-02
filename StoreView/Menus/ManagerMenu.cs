@@ -3,6 +3,7 @@ using StoreModel;
 using StoreController;
 using StoreData;
 using System.Collections.Generic;
+using Serilog;
 
 namespace StoreView.Menus
 {
@@ -47,6 +48,7 @@ namespace StoreView.Menus
         public void Start()
         {
             Console.Clear();
+            Log.Information("Manager menu accessed");
 
             Boolean stay = true;
 
@@ -81,8 +83,9 @@ namespace StoreView.Menus
                             //still need to implement automatic customer ID assignment
                             CreateCustomer();
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
+                            Log.Error(ex, "Something went wrong creating a customer");
                             Console.WriteLine("Invalid Input");
 
                             continue;
@@ -182,12 +185,18 @@ namespace StoreView.Menus
                 //Console.WriteLine(location);
 
             }
-
+            Cart cart = new Cart();
             //Console.WriteLine(customer);
             //now, with both a customer and location, we can create a cart OR call a cart
             //if the customer's cart already exists, it will use that cart
-
-            Cart cart = _cartBL.FindCart(customer.CustomerID);
+            try
+            {
+                cart = _cartBL.FindCart(customer.CustomerID);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Something went wrong");
+            }
 
 
             //before we start assigning products to carts, we need to know our inventory ID list to pass into the product search
@@ -208,8 +217,9 @@ namespace StoreView.Menus
             {
                 productSearch.Start(location, cart.CartID, inventories);
             }
-            catch (System.ArgumentOutOfRangeException)
+            catch (System.ArgumentOutOfRangeException ex)
             {
+                Log.Error(ex, "Someone tried to order a product that didn't exist");
                 Console.WriteLine("Sorry, the requested product does not exist at your location.\nPlease try again.");
                 Console.WriteLine("Press enter to continue");
                 Console.ReadLine();
@@ -316,6 +326,9 @@ namespace StoreView.Menus
 
                 }
 
+                Log.Information("Order placed successfully");
+                Console.WriteLine("Order placed successfully!");
+                Console.WriteLine("Press enter to continue");
 
             }
 
@@ -366,6 +379,7 @@ namespace StoreView.Menus
             _customerBL.AddCustomer(newCustomer);
 
             Console.WriteLine($"Customer {newCustomer.FName} {newCustomer.LName} created successfully!");
+            Log.Information("New customer added to database");
             Console.WriteLine("Press enter to return to the managerial portal.");
             Console.ReadLine();
             Console.Clear();
@@ -392,6 +406,7 @@ namespace StoreView.Menus
 
             _productBL.AddProduct(newProduct);
             Console.WriteLine($"Product {newProduct.ProductName} created successfully!");
+            Log.Information("New Product added to system");
             Console.WriteLine("Press enter to continue.");
             Console.ReadLine();
 
@@ -447,6 +462,7 @@ namespace StoreView.Menus
 
             _inventoryBL.AddInventory(newInventory);
             Console.WriteLine("Inventory update successful! Press enter to continue.");
+            Log.Information($"Inventory at the {trackedLocation.LocationName} location has been updated with {newInventory.ProductQuantity} {newProduct.ProductName}s");
             Console.ReadLine();
             Console.Clear();
 

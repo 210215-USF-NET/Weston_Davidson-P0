@@ -7,6 +7,7 @@ using StoreData.Entities;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 
 namespace StoreView 
@@ -17,6 +18,19 @@ namespace StoreView
 
 		static void Main (string[] args)
 		{
+			//logger configuration
+			Log.Logger = new LoggerConfiguration()
+				.MinimumLevel.Verbose()
+				.WriteTo.File("../Logs.json")
+				.CreateLogger();
+			
+			Log.Verbose("Verbose log message");
+			Log.Debug("Debug log message");
+			Log.Information("Information log message");
+			Log.Warning("Warning log message");
+			Log.Error("Error log message");
+			Log.Fatal("Fatal log message");
+
 			//get the config file
 			var configuration = new ConfigurationBuilder()
 			.SetBasePath(Directory.GetCurrentDirectory())

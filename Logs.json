@@ -1,0 +1,14 @@
+2021-03-02 10:00:05.643 -05:00 [VRB] Verbose log message
+2021-03-02 10:00:05.649 -05:00 [DBG] Debug log message
+2021-03-02 10:00:05.650 -05:00 [INF] Information log message
+2021-03-02 10:00:05.650 -05:00 [WRN] Warning log message
+2021-03-02 10:00:05.650 -05:00 [ERR] Error log message
+2021-03-02 10:00:05.650 -05:00 [FTL] Fatal log message
+2021-03-02 10:15:25.370 -05:00 [VRB] Verbose log message
+2021-03-02 10:15:25.376 -05:00 [DBG] Debug log message
+2021-03-02 10:15:25.376 -05:00 [INF] Information log message
+2021-03-02 10:15:25.376 -05:00 [WRN] Warning log message
+2021-03-02 10:15:25.376 -05:00 [ERR] Error log message
+2021-03-02 10:15:25.376 -05:00 [FTL] Fatal log message
+2021-03-02 10:15:27.176 -05:00 [INF] Manager menu accessed
+2021-03-02 10:17:05.854 -05:00 [INF] Order placed successfully
