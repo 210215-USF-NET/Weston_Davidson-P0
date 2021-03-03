@@ -84,6 +84,7 @@ namespace StoreView.Menus
                     case "exit":
                         //return to manager menu - value "true" should still be assigned to manager menu loop.
                         stay = false;
+                        Console.Clear();
                         break;
                     case "all":
                         //return a list of all customers - BUILD IN METHOD TO INTERACT WITH BL
@@ -242,7 +243,7 @@ namespace StoreView.Menus
 
                         break;
                     case "1":
-                        Console.WriteLine("Okay, please search again to find a different product. \nPress enter to continue.");
+                        Console.WriteLine("Okay, please search again to find a different inventory. \nPress enter to continue.");
                         Console.ReadLine();
                         Console.Clear();
                         break;

@@ -19,4 +19,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StoreModel\StoreModel.csproj" />
+    <ProjectReference Include="..\StoreData\StoreData.csproj" />
+    <ProjectReference Include="..\StoreController\StoreController.csproj" />
+  </ItemGroup>
+
 </Project>

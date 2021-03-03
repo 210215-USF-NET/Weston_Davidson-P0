@@ -41,8 +41,8 @@ namespace StoreView.Menus
                 Console.WriteLine("Enter an order ID to view details about a specific order.");
                 Console.WriteLine("Type in \"all\" to view a list of all orders.");
                 //IMPLEMENT THESE SORTING FUNCTIONS!!!!!
-                Console.WriteLine("Type in \"newest\" to see all orders sorted by newest to oldest.");
-                Console.WriteLine("Type in \"oldest\" to see all orders sorted by oldest to newest.");
+                Console.WriteLine("Type in \"newest\" to see the ten newest orders sorted by newest to oldest.");
+                Console.WriteLine("Type in \"oldest\" to see the ten oldest orders sorted by oldest to newest.");
                 //Console.WriteLine("Type in \"high price\" to see orders sorted by highest cost to lowest");
                 //Console.WriteLine("Type in \"low price\" to see orders sorted by lowest cost to highest");
                 Console.WriteLine("Type in \"exit\" to return to the manager menu.");
@@ -69,8 +69,8 @@ namespace StoreView.Menus
                         SortOrdersByOldest();
                         break;
                     //case "high price":
-                        //SortOrdersByHighPrice();
-                        //break;
+                    //SortOrdersByHighPrice();
+                    //break;
 
                     default:
                         //return specified string values of names retrieved from DB
@@ -157,12 +157,17 @@ namespace StoreView.Menus
             List<Order> orderList = _orderBL.GetOrders();
 
             orderList.Sort((x, y) => DateTime.Compare(y.OrderDate, x.OrderDate));
-
+            int tracker = 0;
             foreach (Order o in orderList)
             {
+
                 line.LineSeparate();
                 Console.WriteLine($"| Order Date: {o.OrderDate} | Order ID: {o.OrderID} | Customer ID: {o.CustomerID} | Location ID: {o.LocationID} |");
-
+                tracker++;
+                if (tracker == 10)
+                {
+                    break;
+                }
             }
             line.LineSeparate();
             Console.WriteLine("Press enter to continue searching!");
@@ -175,11 +180,15 @@ namespace StoreView.Menus
             List<Order> orderList = _orderBL.GetOrders();
 
             orderList.Sort((x, y) => DateTime.Compare(x.OrderDate, y.OrderDate));
-
+            int tracker = 0;
             foreach (Order o in orderList)
             {
                 line.LineSeparate();
                 Console.WriteLine($"| Order Date: {o.OrderDate} | Order ID: {o.OrderID} | Customer ID: {o.CustomerID} | Location ID: {o.LocationID} |");
+                if (tracker == 10)
+                {
+                    break;
+                }
             }
             line.LineSeparate();
             Console.WriteLine("Press enter to continue searching!");
@@ -191,48 +200,52 @@ namespace StoreView.Menus
             LineSeparator line = new LineSeparator();
             List<Order> orderList = _orderBL.GetOrders();
             List<List<OrderItem>> listOfOrderItemsPerOrder = new List<List<OrderItem>>();
-            foreach(Order o in orderList){
-            List<OrderItem> orderItems = _orderItemsBL.GetOrderItems(o.OrderID);
-            listOfOrderItemsPerOrder.Add(orderItems);
+            foreach (Order o in orderList)
+            {
+                List<OrderItem> orderItems = _orderItemsBL.GetOrderItems(o.OrderID);
+                listOfOrderItemsPerOrder.Add(orderItems);
             }
 
-                List<decimal> orderValues = new List<decimal>();
-                List<decimal> orderSums = new List<decimal>();
+            List<decimal> orderValues = new List<decimal>();
+            List<decimal> orderSums = new List<decimal>();
 
             //parse order values to 
             foreach (List<OrderItem> oL in listOfOrderItemsPerOrder)
             {
 
-                foreach(OrderItem o in oL){
+                foreach (OrderItem o in oL)
+                {
                     Product productTracker = _productBL.GetProductByID(o.productID);
-                    
+
                     orderValues.Add(o.OrderItemsQuantity.Value * productTracker.ProductPrice.Value);
-                    
+
                 }
                 orderSums.Add(orderValues.Sum());
 
             }
 
             int i = 0;
-            foreach (Order o in orderList){
+            foreach (Order o in orderList)
+            {
                 o.TotalCost = orderSums[i];
                 i++;
             }
 
             //we FINALLY have a list of orders with sums lol.
-        
+
 
             //CHANGE THIS PART FOR SORTING FROM LOWEST TO HIGHEST/ HIGHEST TO LOWEST
 
-            List<Order> sortedList = orderList.OrderBy( o => o.TotalCost).ToList();
+            List<Order> sortedList = orderList.OrderBy(o => o.TotalCost).ToList();
 
-            foreach(Order o in sortedList){
+            foreach (Order o in sortedList)
+            {
                 line.LineSeparate();
                 Console.WriteLine($"| Order Price: {o.TotalCost} | Order Date: {o.OrderDate} | Order ID: {o.OrderID} | Customer ID: {o.CustomerID} | Location ID: {o.LocationID} |");
                 line.LineSeparate();
             }
 
-            
+
 
 
 
